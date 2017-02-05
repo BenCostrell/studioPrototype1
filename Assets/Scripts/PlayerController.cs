@@ -8,21 +8,53 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	public int playerNum;
 	private Animator anim;
-    public List<string> playerToys;
-    
+	public List<string> playerToys; 
+
+	public int damage;
+	private float timeUntilActionable;
+	public float hitstunFactor;
+	public float knockbackDamageGrowthFactor;
+	private bool inHitstun;
+	private GameObject basicAttackObj;
+	private BasicAttackController basicAttackCont;
+	public float basicAttackDuration;
+	private bool basicAttackActive;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
+		timeUntilActionable = 0;
+		inHitstun = false;
 
-        playerToys = new List<string>();
+		basicAttackObj = transform.GetChild (0).gameObject;
+		basicAttackCont = GetComponentInChildren<BasicAttackController> ();
+		basicAttackObj.SetActive (false);
+		basicAttackActive = false;
+
+		playerToys = new List<string>(); 
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Move ();
-		DetectActionInput ();
+		if (timeUntilActionable > 0) {
+			timeUntilActionable -= Time.deltaTime;
+		} else {
+			if (inHitstun) {
+				rb.velocity = Vector3.zero;
+				inHitstun = false;
+				GetComponent<SpriteRenderer> ().color = Color.white;
+			}
+			if (basicAttackActive) {
+				basicAttackCont.SetAttackHitbox (false);
+				basicAttackObj.SetActive (false);
+				anim.SetTrigger ("ResetToNeutral");
+				basicAttackActive = false;
+			}
+			Move ();
+			DetectActionInput ();
+		}
 	}
 
 	void Move(){
@@ -40,22 +72,20 @@ public class PlayerController : MonoBehaviour {
 	void DetectActionInput(){
 		if (Input.GetButtonDown ("BasicAttack_P" + playerNum)) {
 			BasicAttack ();
-			Debug.Log ("player " + playerNum + " attacking");
 		}
 	}
 
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.gameObject.tag == "Toy" && playerToys.Count < 2)
-        {
-            Debug.Log(gameObject.name + " grabbed the " + other.gameObject.name + "!!!");
-            playerToys.Add(other.gameObject.GetComponent<ToyControllerScript>().toyName);
-            Destroy(other.gameObject);
-        }
+	void OnTriggerEnter2D(Collider2D other) 
+	{ 
+		if (other.gameObject.tag == "Toy" && playerToys.Count < 2) 
+		{ 
+			Debug.Log(gameObject.name + " grabbed the " + other.gameObject.name + "!!!"); 
+			playerToys.Add(other.gameObject.GetComponent<ToyControllerScript>().toyName); 
+			Destroy(other.gameObject); 
+		} 
 
-    }
-
-    void OnTriggerExit2D(Collider2D collider){
+	} 
+	void OnTriggerExit2D(Collider2D collider){
 		if (collider.tag == "Arena"){
 			Die ();
 		}
@@ -66,6 +96,20 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void BasicAttack(){
-		anim.SetTrigger ("basicAttack_P" + playerNum);
+		anim.SetTrigger ("basicAttack");
+		basicAttackObj.SetActive (true);
+		basicAttackCont.SetAttackHitbox (true);
+		basicAttackActive = true;
+		timeUntilActionable = basicAttackDuration;
+		rb.velocity = Vector3.zero;
+	}
+
+	public void TakeHit(int damageTaken, float baseKnockback, float knockbackGrowth, Vector3 knockbackVector){
+		damage += damageTaken;
+		float knockbackMagnitude = baseKnockback + (knockbackGrowth * damage * knockbackDamageGrowthFactor);
+		timeUntilActionable = knockbackMagnitude * hitstunFactor;
+		rb.velocity = knockbackMagnitude * knockbackVector;
+		inHitstun = true;
+		GetComponent<SpriteRenderer> ().color = Color.red;
 	}
 }

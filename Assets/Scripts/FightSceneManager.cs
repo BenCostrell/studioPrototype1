@@ -15,9 +15,8 @@ public class FightSceneManager : MonoBehaviour {
 	public RuntimeAnimatorController player2Anim;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		InitializePlayers ();
-
 	}
 	
 	// Update is called once per frame
