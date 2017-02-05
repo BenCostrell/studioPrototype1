@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212655614055590480}
   - component: {fileID: 50470161513252334}
   - component: {fileID: 61195926130010648}
+  - component: {fileID: 114701777582201112}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Toy
@@ -76,6 +77,18 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 2.82, y: 1.33}
+--- !u!114 &114701777582201112
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1956139393804654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da4793de66551c54581bcb80ff43a8e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toyName: 
 --- !u!212 &212655614055590480
 SpriteRenderer:
   m_ObjectHideFlags: 1
