@@ -8,14 +8,15 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	public int playerNum;
 	private Animator anim;
-    List<GameObject> player1Toys;
-    List<GameObject> player2Toys;
+    public List<string> playerToys;
     
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
+
+        playerToys = new List<string>();
 	}
 	
 	// Update is called once per frame
@@ -45,10 +46,13 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Toy")
+        if (other.gameObject.tag == "Toy" && playerToys.Count < 2)
         {
-            Debug.Log("Colliding with " + other.gameObject.name);
+            Debug.Log(gameObject.name + " grabbed the " + other.gameObject.name + "!!!");
+            playerToys.Add(other.gameObject.GetComponent<ToyControllerScript>().toyName);
+            Destroy(other.gameObject);
         }
+
     }
 
     void OnTriggerExit2D(Collider2D collider){
@@ -64,9 +68,4 @@ public class PlayerController : MonoBehaviour {
 	void BasicAttack(){
 		anim.SetTrigger ("basicAttack_P" + playerNum);
 	}
-
-    void CollectToy(GameObject toy)
-    {
-
-    }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ToyGeneratorScript: MonoBehaviour {
 
@@ -27,16 +28,28 @@ public class ToyGeneratorScript: MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+
+        if (Input.GetButtonDown("Reset"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+    }
 
     void ToySpawner()
     {
         //running one time for each item
-        GenerateToy(calculator);
-        GenerateToy(cat);
-        GenerateToy(dog);
-        GenerateToy(kazoo);
+        GameObject calculatorObj = GenerateToy(calculator);
+        calculatorObj.GetComponent<ToyControllerScript>().toyName = "Calculator";
+
+        GameObject catObj = GenerateToy(cat);
+        catObj.GetComponent<ToyControllerScript>().toyName = "Cat";
+
+        GameObject dogObj = GenerateToy(dog);
+        dogObj.GetComponent<ToyControllerScript>().toyName = "Dog";
+
+        GameObject kazooObj = GenerateToy(kazoo);
+        kazooObj.GetComponent<ToyControllerScript>().toyName = "Kazoo";
     }
 
     //this is checking to see if the the spawnPoint has already been used

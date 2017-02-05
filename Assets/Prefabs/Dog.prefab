@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212640088378881992}
   - component: {fileID: 50116196850268690}
   - component: {fileID: 61602771627469020}
+  - component: {fileID: 114554636553434260}
   m_Layer: 0
   m_Name: Dog
   m_TagString: Toy
@@ -76,6 +77,18 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1.84, y: 1.67}
+--- !u!114 &114554636553434260
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1013939593344928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da4793de66551c54581bcb80ff43a8e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toyName: 
 --- !u!212 &212640088378881992
 SpriteRenderer:
   m_ObjectHideFlags: 1
