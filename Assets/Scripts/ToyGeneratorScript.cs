@@ -17,7 +17,8 @@ public class ToyGeneratorScript: MonoBehaviour {
 	void Start () {
 
         //find the spawnpoints
-        //start a list to put the spawnpoint
+        //start a list to put the spawnpoints in when they are used
+        //run the spawner
         spawnpoint = GameObject.FindGameObjectsWithTag("SpawnPoint");
         usedIndices = new List<int>();
         ToySpawner();
@@ -31,12 +32,15 @@ public class ToyGeneratorScript: MonoBehaviour {
 
     void ToySpawner()
     {
+        //running one time for each item
         GenerateToy(calculator);
         GenerateToy(cat);
         GenerateToy(dog);
         GenerateToy(kazoo);
     }
 
+    //this is checking to see if the the spawnPoint has already been used
+    //is passed the index against all the points we've used. If any of them match, then we can't use. If they don't, we can.
     bool CheckIndex(int indexToCheck)
     {
         foreach (int i in usedIndices)
@@ -50,6 +54,11 @@ public class ToyGeneratorScript: MonoBehaviour {
         return true;
     }
 
+    //returns a GameObject to be instantiated
+    //the random range grabs a random index that could be used to place the object
+    //if "isGood" has been returned true, then add that to the LIST of usedIndices and instantiate the object at the location
+    //if "isGood" has been returned false, then run the randomRange again until it's returned true
+    //isGood is set to check the index using the CheckIndex function
     GameObject GenerateToy(GameObject toyPrefab)
     {
         int spawnPointIndex = Random.Range(0, 6);
@@ -60,7 +69,6 @@ public class ToyGeneratorScript: MonoBehaviour {
             isGood = CheckIndex(spawnPointIndex);
         }
         usedIndices.Add(spawnPointIndex);
-        Instantiate(toyPrefab, spawnpoint[spawnPointIndex].transform.position, Quaternion.identity);
         GameObject toy = Instantiate(toyPrefab, spawnpoint[spawnPointIndex].transform.position, Quaternion.identity) as GameObject;
         return toy;
     }
