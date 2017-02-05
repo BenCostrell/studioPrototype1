@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour {
+public class ToyGeneratorScript: MonoBehaviour {
+
+    public GameObject calculator;
+    public GameObject cat;
+    public GameObject kazoo;
+    public GameObject dog;
 
 	// Use this for initialization
 	void Start () {
