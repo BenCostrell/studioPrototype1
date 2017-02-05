@@ -6,15 +6,18 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody2D rb;
 	public float speed;
 	public int playerNum;
+	private Animator anim;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
+		anim = GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		Move ();
+		DetectActionInput ();
 	}
 
 	void Move(){
@@ -25,6 +28,12 @@ public class PlayerController : MonoBehaviour {
 		rb.velocity = speed * direction;
 	}
 
+	void DetectActionInput(){
+		if (Input.GetButtonDown ("BasicAttack_P" + playerNum)) {
+			BasicAttack ();
+		}
+	}
+
 	void OnTriggerExit2D(Collider2D collider){
 		if (collider.tag == "Arena"){
 			Die ();
@@ -33,5 +42,9 @@ public class PlayerController : MonoBehaviour {
 
 	void Die(){
 		Destroy (gameObject);
+	}
+
+	void BasicAttack(){
+		anim.SetTrigger ("basicAttack");
 	}
 }
