@@ -7,17 +7,49 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	public int playerNum;
 	private Animator anim;
+	public int damage;
+	private float timeUntilActionable;
+	public float hitstunFactor;
+	public float knockbackDamageGrowthFactor;
+	private bool inHitstun;
+	private GameObject basicAttackObj;
+	private BasicAttackController basicAttackCont;
+	public float basicAttackDuration;
+	private bool basicAttackActive;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
+		timeUntilActionable = 0;
+		inHitstun = false;
+
+		basicAttackObj = transform.GetChild (0).gameObject;
+		basicAttackCont = GetComponentInChildren<BasicAttackController> ();
+		basicAttackObj.SetActive (false);
+		basicAttackActive = false;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Move ();
-		DetectActionInput ();
+		if (timeUntilActionable > 0) {
+			timeUntilActionable -= Time.deltaTime;
+		} else {
+			if (inHitstun) {
+				rb.velocity = Vector3.zero;
+				inHitstun = false;
+				GetComponent<SpriteRenderer> ().color = Color.white;
+			}
+			if (basicAttackActive) {
+				basicAttackCont.SetAttackHitbox (false);
+				basicAttackObj.SetActive (false);
+				anim.SetTrigger ("ResetToNeutral");
+				basicAttackActive = false;
+			}
+			Move ();
+			DetectActionInput ();
+		}
 	}
 
 	void Move(){
@@ -35,7 +67,6 @@ public class PlayerController : MonoBehaviour {
 	void DetectActionInput(){
 		if (Input.GetButtonDown ("BasicAttack_P" + playerNum)) {
 			BasicAttack ();
-			Debug.Log ("player " + playerNum + " attacking");
 		}
 	}
 
@@ -50,6 +81,20 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void BasicAttack(){
-		anim.SetTrigger ("basicAttack_P" + playerNum);
+		anim.SetTrigger ("basicAttack");
+		basicAttackObj.SetActive (true);
+		basicAttackCont.SetAttackHitbox (true);
+		basicAttackActive = true;
+		timeUntilActionable = basicAttackDuration;
+		rb.velocity = Vector3.zero;
+	}
+
+	public void TakeHit(int damageTaken, float baseKnockback, float knockbackGrowth, Vector3 knockbackVector){
+		damage += damageTaken;
+		float knockbackMagnitude = baseKnockback + (knockbackGrowth * damage * knockbackDamageGrowthFactor);
+		timeUntilActionable = knockbackMagnitude * hitstunFactor;
+		rb.velocity = knockbackMagnitude * knockbackVector;
+		inHitstun = true;
+		GetComponent<SpriteRenderer> ().color = Color.red;
 	}
 }
