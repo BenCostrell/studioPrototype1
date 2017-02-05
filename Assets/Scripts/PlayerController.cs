@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
 
@@ -7,6 +8,9 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	public int playerNum;
 	private Animator anim;
+    List<GameObject> player1Toys;
+    List<GameObject> player2Toys;
+    
 
 	// Use this for initialization
 	void Start () {
@@ -39,7 +43,15 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerExit2D(Collider2D collider){
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Toy")
+        {
+            Debug.Log("Colliding with " + other.gameObject.name);
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collider){
 		if (collider.tag == "Arena"){
 			Die ();
 		}
@@ -52,4 +64,9 @@ public class PlayerController : MonoBehaviour {
 	void BasicAttack(){
 		anim.SetTrigger ("basicAttack_P" + playerNum);
 	}
+
+    void CollectToy(GameObject toy)
+    {
+
+    }
 }
