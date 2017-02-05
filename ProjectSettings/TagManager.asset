@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SpawnPoint
   - Arena
+  - Toy
   layers:
   - Default
   - TransparentFX

@@ -29,10 +29,12 @@ public class ToySceneManager : MonoBehaviour {
         player1 = Instantiate(playerPrefab, player1Spawn, Quaternion.identity) as GameObject;
         player1.GetComponent<SpriteRenderer>().sprite = player1Sprite;
         player1.GetComponent<PlayerController>().playerNum = 1;
+        player1.name = "player1";
 
         player2 = Instantiate(playerPrefab, player2Spawn, Quaternion.identity) as GameObject;
         player2.GetComponent<SpriteRenderer>().sprite = player2Sprite;
         player2.GetComponent<PlayerController>().playerNum = 2;
+        player2.name = "player2";
 
 
     }
