@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour {
 	void DetectActionInput(){
 		if (Input.GetButtonDown ("BasicAttack_P" + playerNum)) {
 			BasicAttack ();
+			Debug.Log ("player " + playerNum + " attacking");
 		}
 	}
 
@@ -45,6 +46,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void BasicAttack(){
-		anim.SetTrigger ("basicAttack");
+		anim.SetTrigger ("basicAttack_P" + playerNum);
 	}
 }

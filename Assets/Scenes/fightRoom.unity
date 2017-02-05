@@ -213,6 +213,8 @@ MonoBehaviour:
     type: 2}
   player1Spawn: {x: -5, y: 0, z: 0}
   player2Spawn: {x: 5, y: 0, z: 0}
+  player1Anim: {fileID: 9100000, guid: 0771b1473e81e144eaf985ec86d6495e, type: 2}
+  player2Anim: {fileID: 9100000, guid: 67eaf806daf2bf747b77e9e32629d312, type: 2}
 --- !u!4 &1274177485
 Transform:
   m_ObjectHideFlags: 0
