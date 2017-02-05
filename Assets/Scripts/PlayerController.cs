@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
 
@@ -7,6 +8,8 @@ public class PlayerController : MonoBehaviour {
 	public float speed;
 	public int playerNum;
 	private Animator anim;
+	public List<string> playerToys; 
+
 	public int damage;
 	private float timeUntilActionable;
 	public float hitstunFactor;
@@ -28,6 +31,8 @@ public class PlayerController : MonoBehaviour {
 		basicAttackCont = GetComponentInChildren<BasicAttackController> ();
 		basicAttackObj.SetActive (false);
 		basicAttackActive = false;
+
+		playerToys = new List<string>(); 
 
 	}
 	
@@ -70,6 +75,16 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	void OnTriggerEnter2D(Collider2D other) 
+	{ 
+		if (other.gameObject.tag == "Toy" && playerToys.Count < 2) 
+		{ 
+			Debug.Log(gameObject.name + " grabbed the " + other.gameObject.name + "!!!"); 
+			playerToys.Add(other.gameObject.GetComponent<ToyControllerScript>().toyName); 
+			Destroy(other.gameObject); 
+		} 
+
+	} 
 	void OnTriggerExit2D(Collider2D collider){
 		if (collider.tag == "Arena"){
 			Die ();
