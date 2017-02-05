@@ -29,7 +29,5 @@ public class FightSceneManager : MonoBehaviour {
 		player2 = Instantiate (playerPrefab, player2Spawn, Quaternion.identity) as GameObject;
 		player2.GetComponent<SpriteRenderer> ().sprite = player2Sprite;
 		player2.GetComponent<PlayerController> ().playerNum = 2;
-
-
 	}
 }

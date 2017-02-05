@@ -24,4 +24,14 @@ public class PlayerController : MonoBehaviour {
 
 		rb.velocity = speed * direction;
 	}
+
+	void OnTriggerExit2D(Collider2D collider){
+		if (collider.tag == "Arena"){
+			Die ();
+		}
+	}
+
+	void Die(){
+		Destroy (gameObject);
+	}
 }
