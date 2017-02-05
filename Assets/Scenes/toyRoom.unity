@@ -465,8 +465,8 @@ MonoBehaviour:
   player2Sprite: {fileID: 21300000, guid: cab03f0ad2cd6e34390eb962a78e8a84, type: 3}
   playerPrefab: {fileID: 1000013687557626, guid: 66a74ca419f53ea4cb77fd0ff1f731fa,
     type: 2}
-  player1Spawn: {x: -5, y: 0, z: 0}
-  player2Spawn: {x: 0, y: 0, z: 0}
+  player1Spawn: {x: -1, y: -1, z: 0}
+  player2Spawn: {x: 1, y: -1, z: 0}
 --- !u!4 &1909842949
 Transform:
   m_ObjectHideFlags: 0
