@@ -549,7 +549,11 @@ MonoBehaviour:
   player1Spawn: {x: -1, y: -1, z: 0}
   player2Spawn: {x: 1, y: -1, z: 0}
   nerdVO: {fileID: 8300000, guid: 304de2826cbf4e643889015a1cd9ae0e, type: 3}
-  rockstartVO: {fileID: 8300000, guid: 94373828d582d5941909b60df0a3fbf0, type: 3}
+  rockstarVO: {fileID: 8300000, guid: 94373828d582d5941909b60df0a3fbf0, type: 3}
+  davidVO: {fileID: 0}
+  jdSalingerVO: {fileID: 0}
+  politicianVO: {fileID: 0}
+  architectVO: {fileID: 0}
 --- !u!4 &1909842949
 Transform:
   m_ObjectHideFlags: 0
