@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ToySceneManager : MonoBehaviour {
 
@@ -11,12 +13,20 @@ public class ToySceneManager : MonoBehaviour {
     public GameObject playerPrefab;
     public Vector3 player1Spawn;
     public Vector3 player2Spawn;
+    public Image transitionImage;
 
     AudioSource audioSource;
     AudioClip audioClip;
 
     public AudioClip nerdVO;
-    public AudioClip rockstartVO;
+    public AudioClip rockstarVO;
+    public AudioClip davidVO;
+    public AudioClip jdSalingerVO;
+    public AudioClip politicianVO;
+    public AudioClip architectVO;
+
+    bool fadeToBlack;
+    float timeElapsed;
 
     // Use this for initialization
     void Start()
@@ -24,6 +34,9 @@ public class ToySceneManager : MonoBehaviour {
         InitializePlayers();
         audioSource = Camera.main.GetComponent<AudioSource>();
         audioClip = Camera.main.GetComponent<AudioClip>();
+
+        fadeToBlack = false;
+        transitionImage.canvasRenderer.SetAlpha(0f);
     }
 
     // Update is called once per frame
@@ -33,11 +46,19 @@ public class ToySceneManager : MonoBehaviour {
         {
             VoiceOverDebug();
 
-            if (audioSource.isPlaying == false)
+            if (audioSource.isPlaying == false && fadeToBlack == false)
             {
                 StartPlayerOneVO();
             }
 
+        }
+
+        if (fadeToBlack == true)
+        {
+            Debug.Log("FadeToBlack");
+            timeElapsed += Time.deltaTime;
+            transitionImage.canvasRenderer.SetAlpha(Mathf.Lerp(0, 1, timeElapsed / 2));
+            StartCoroutine(ChangeScene(2));
         }
     }
 
@@ -100,6 +121,51 @@ public class ToySceneManager : MonoBehaviour {
             StartCoroutine(waitToPlay(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
         }
+
+        if (player1Archetype == "Rockstar")
+        {
+            Debug.Log("ROCKSTAR VO IS PLAYING");
+            audioSource.clip = rockstarVO;
+            audioSource.Play();
+            StartCoroutine(waitToPlay(audioSource.clip.length));
+            Debug.Log("audio is playing = " + audioSource.isPlaying);
+        }
+
+        if (player1Archetype == "Architect")
+        {
+            Debug.Log("ARCHITECT VO IS PLAYING");
+            audioSource.clip = architectVO;
+            audioSource.Play();
+            StartCoroutine(waitToPlay(audioSource.clip.length));
+            Debug.Log("audio is playing = " + audioSource.isPlaying);
+        }
+
+        if (player1Archetype == "David")
+        {
+            Debug.Log("DAVID VO IS PLAYING");
+            audioSource.clip = davidVO;
+            audioSource.Play();
+            StartCoroutine(waitToPlay(audioSource.clip.length));
+            Debug.Log("audio is playing = " + audioSource.isPlaying);
+        }
+
+        if (player1Archetype == "Politician")
+        {
+            Debug.Log("POLITICIAN VO IS PLAYING");
+            audioSource.clip = politicianVO;
+            audioSource.Play();
+            StartCoroutine(waitToPlay(audioSource.clip.length));
+            Debug.Log("audio is playing = " + audioSource.isPlaying);
+        }
+
+        if (player1Archetype == "JD Salinger")
+        {
+            Debug.Log("ROCKSTAR VO IS PLAYING");
+            audioSource.clip = jdSalingerVO;
+            audioSource.Play();
+            StartCoroutine(waitToPlay(audioSource.clip.length));
+            Debug.Log("audio is playing = " + audioSource.isPlaying);
+        }
     }
 
     void StartPlayerTwoVO()
@@ -109,10 +175,60 @@ public class ToySceneManager : MonoBehaviour {
         if (player2Archetype == "Rockstar")
         {
             Debug.Log("ROCKSTAR VO IS PLAYING");
-            audioSource.clip = rockstartVO;
+            audioSource.clip = rockstarVO;
             audioSource.Play();
+            StartCoroutine(waitToTransition(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
         }
+
+        if (player2Archetype == "Architect")
+        {
+            Debug.Log("ARCHITECT VO IS PLAYING");
+            audioSource.clip = architectVO;
+            audioSource.Play();
+            StartCoroutine(waitToTransition(audioSource.clip.length));
+            Debug.Log("audio is playing = " + audioSource.isPlaying);
+        }
+
+        if (player2Archetype == "David")
+        {
+            Debug.Log("DAVID VO IS PLAYING");
+            audioSource.clip = davidVO;
+            audioSource.Play();
+            StartCoroutine(waitToTransition(audioSource.clip.length));
+            Debug.Log("audio is playing = " + audioSource.isPlaying);
+        }
+
+        if (player2Archetype == "Politician")
+        {
+            Debug.Log("POLITICIAN VO IS PLAYING");
+            audioSource.clip = politicianVO;
+            audioSource.Play();
+            StartCoroutine(waitToTransition(audioSource.clip.length));
+            Debug.Log("audio is playing = " + audioSource.isPlaying);
+        }
+
+        if (player2Archetype == "JD Salinger")
+        {
+            Debug.Log("ROCKSTAR VO IS PLAYING");
+            audioSource.clip = jdSalingerVO;
+            audioSource.Play();
+            StartCoroutine(waitToTransition(audioSource.clip.length));
+            Debug.Log("audio is playing = " + audioSource.isPlaying);
+        }
+        if (player2Archetype == "Nerd")
+        {
+            Debug.Log("NERD VO IS PLAYING");
+            audioSource.clip = nerdVO;
+            audioSource.Play();
+            StartCoroutine(waitToTransition(audioSource.clip.length));
+            Debug.Log("audio is playing = " + audioSource.isPlaying);
+        }
+    }
+
+    void StartTransition()
+    {
+        fadeToBlack = true;
     }
 
     IEnumerator waitToPlay(float time)
@@ -120,6 +236,19 @@ public class ToySceneManager : MonoBehaviour {
         Debug.Log(time);
         yield return new WaitForSeconds(time);
         StartPlayerTwoVO();
+    }
+
+    IEnumerator waitToTransition(float time)
+    {
+        yield return new WaitForSeconds(time);
+        audioSource.Stop();
+        StartTransition();
+    }
+
+    IEnumerator ChangeScene(float time)
+    {
+        yield return new WaitForSeconds(time);
+        SceneManager.LoadScene("fightRoom");
     }
 
 
