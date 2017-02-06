@@ -160,7 +160,7 @@ public class ToySceneManager : MonoBehaviour {
 
         if (player1Archetype == "JD Salinger")
         {
-            Debug.Log("ROCKSTAR VO IS PLAYING");
+            Debug.Log("JD SALINGER VO IS PLAYING");
             audioSource.clip = jdSalingerVO;
             audioSource.Play();
             StartCoroutine(waitToPlay(audioSource.clip.length));
