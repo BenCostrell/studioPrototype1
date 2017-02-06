@@ -10,9 +10,15 @@ public class PlayerController : MonoBehaviour {
 	private Animator anim;
 	public List<string> playerToys; 
 	public GameObject fireballPrefab;
+	public GameObject musicBubblePrefab;
 	public float lungeSpeed;
 	public float lungeDuration;
 	public float lungeCooldown;
+
+	private enum Ability {Fireball, Lunge, Sing, Shield};
+
+	private Ability ability1;
+	private Ability ability2;
 
 	public int damage;
 	private float timeUntilActionable;
@@ -44,6 +50,8 @@ public class PlayerController : MonoBehaviour {
 
 		playerToys = new List<string>(); 
 
+		SetAbilities (Ability.Fireball, Ability.Sing);
+
 	}
 	
 	// Update is called once per frame
@@ -68,6 +76,11 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	void SetAbilities(Ability ab1, Ability ab2){
+		ability1 = ab1;
+		ability2 = ab2;
+	}
+
 	void Move(){
 		Vector2 direction = new Vector2 (Input.GetAxisRaw ("Horizontal_P" + playerNum), Input.GetAxisRaw ("Vertical_P" + playerNum));
 
@@ -89,14 +102,14 @@ public class PlayerController : MonoBehaviour {
 			ability1CooldownCounter -= Time.deltaTime;
 		}
 		else if (Input.GetButtonDown("Ability1_P" + playerNum)){
-			ability1CooldownCounter = ThrowFireball ();
+			ability1CooldownCounter = DoAbility (ability1);
 		}
 
 		if (ability2CooldownCounter > 0) {
 			ability2CooldownCounter -= Time.deltaTime;
 		}
 		else if (Input.GetButtonDown("Ability2_P" + playerNum)){
-			ability2CooldownCounter = Lunge ();
+			ability2CooldownCounter = DoAbility (ability2);
 		}
 	}
 
@@ -114,6 +127,19 @@ public class PlayerController : MonoBehaviour {
 		if (collider.tag == "Arena"){
 			Die ();
 		}
+	}
+
+	float DoAbility(Ability ab){
+		if (ab == Ability.Fireball) {
+			return ThrowFireball ();
+		} else if (ab == Ability.Lunge) {
+			return Lunge ();
+		} else if (ab == Ability.Sing) {
+			return Sing ();
+		} else if (ab == Ability.Shield) {
+			return Shield ();
+		}
+		return 0f;
 	}
 
 	float ThrowFireball(){
@@ -143,6 +169,19 @@ public class PlayerController : MonoBehaviour {
 		return lungeCooldown;
 	}
 
+	float Sing(){
+		GameObject musicBubble = Instantiate (musicBubblePrefab, transform.position, Quaternion.identity);
+		MusicBubbleController mb = musicBubble.GetComponent<MusicBubbleController> ();
+		InitiateAction (mb.castDuration);
+		mb.parentPlayerNum = playerNum;
+		anim.SetTrigger ("Sing");
+		return mb.cooldown;
+	}
+
+	float Shield(){
+		return 0f;
+	}
+
 	void Die(){
 		Destroy (gameObject);
 	}
@@ -162,9 +201,14 @@ public class PlayerController : MonoBehaviour {
 	public void TakeHit(int damageTaken, float baseKnockback, float knockbackGrowth, Vector3 knockbackVector){
 		damage += damageTaken;
 		float knockbackMagnitude = baseKnockback + (knockbackGrowth * damage * knockbackDamageGrowthFactor);
-		timeUntilActionable = knockbackMagnitude * hitstunFactor;
+		Stun(knockbackMagnitude * hitstunFactor);
 		rb.velocity = knockbackMagnitude * knockbackVector;
+	}
+
+	public void Stun(float hitstun){
+		timeUntilActionable = hitstun;
 		inHitstun = true;
+		rb.velocity = Vector3.zero;
 		GetComponent<SpriteRenderer> ().color = Color.red;
 	}
 

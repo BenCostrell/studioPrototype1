@@ -156,11 +156,13 @@ MonoBehaviour:
   playerToys: []
   fireballPrefab: {fileID: 1387515170855940, guid: 4df8c9949f73d584c9aae984459ce8d8,
     type: 2}
+  musicBubblePrefab: {fileID: 1152909143943310, guid: 82a7ef6821145d343bfbd44ec4844d0d,
+    type: 2}
   lungeSpeed: 20
   lungeDuration: 0.2
   lungeCooldown: 1
   damage: 0
-  hitstunFactor: 0.1
+  hitstunFactor: 0.03
   knockbackDamageGrowthFactor: 0.3
   basicAttackDuration: 0.2
 --- !u!114 &114655649439137138
@@ -174,8 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9f9c7b35f924914b9419638004c0211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
-  baseKnockback: 3
+  damage: 2
+  baseKnockback: 8
   knockbackGrowth: 1
   hitboxActive: 0
 --- !u!212 &212000012149396008
