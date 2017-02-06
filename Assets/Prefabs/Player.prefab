@@ -153,9 +153,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   playerNum: 0
+  playerToys: []
+  fireballPrefab: {fileID: 1387515170855940, guid: 4df8c9949f73d584c9aae984459ce8d8,
+    type: 2}
   damage: 0
   hitstunFactor: 0.1
-  knockbackDamageGrowthFactor: 0.1
+  knockbackDamageGrowthFactor: 0.3
   basicAttackDuration: 0.2
 --- !u!114 &114655649439137138
 MonoBehaviour:

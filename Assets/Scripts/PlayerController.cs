@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour {
 	public int playerNum;
 	private Animator anim;
 	public List<string> playerToys; 
+	public GameObject fireballPrefab;
 
 	public int damage;
 	private float timeUntilActionable;
@@ -19,13 +20,19 @@ public class PlayerController : MonoBehaviour {
 	private BasicAttackController basicAttackCont;
 	public float basicAttackDuration;
 	private bool basicAttackActive;
+	private bool actionInProcess;
+	private float ability1CooldownCounter;
+	private float ability2CooldownCounter;
 
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
 		timeUntilActionable = 0;
+		ability1CooldownCounter = 0;
+		ability2CooldownCounter = 0;
 		inHitstun = false;
+		actionInProcess = false;
 
 		basicAttackObj = transform.GetChild (0).gameObject;
 		basicAttackCont = GetComponentInChildren<BasicAttackController> ();
@@ -49,8 +56,11 @@ public class PlayerController : MonoBehaviour {
 			if (basicAttackActive) {
 				basicAttackCont.SetAttackHitbox (false);
 				basicAttackObj.SetActive (false);
-				anim.SetTrigger ("ResetToNeutral");
 				basicAttackActive = false;
+			}
+			if (actionInProcess) {
+				actionInProcess = false;
+				anim.SetTrigger ("ResetToNeutral");
 			}
 			Move ();
 			DetectActionInput ();
@@ -73,6 +83,19 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetButtonDown ("BasicAttack_P" + playerNum)) {
 			BasicAttack ();
 		}
+
+		if (ability1CooldownCounter > 0) {
+			ability1CooldownCounter -= Time.deltaTime;
+		}
+		else if (Input.GetButtonDown("Ability1_P" + playerNum)){
+			ability1CooldownCounter = ThrowFireball ();
+		}
+
+		if (ability2CooldownCounter > 0) {
+			ability2CooldownCounter -= Time.deltaTime;
+		}
+		else if (Input.GetButtonDown("Ability2_P" + playerNum)){
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D other) 
@@ -91,17 +114,32 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	float ThrowFireball(){
+		int directionFacing = 1;
+		if (transform.localScale.x > 0) {
+			directionFacing *= -1;
+		}
+		Vector3 fireballOffset = directionFacing * 2 * Vector3.right;
+		GameObject fireball = Instantiate (fireballPrefab, transform.position + fireballOffset, Quaternion.identity);
+		FireballController fc = fireball.GetComponent<FireballController> ();
+		fc.InitializeTrajectory (directionFacing);
+
+		anim.SetTrigger ("ThrowFireball");
+		InitiateAction (fireball.GetComponent<FireballController> ().animationDuration);
+		return fc.cooldown;
+	}
+
 	void Die(){
 		Destroy (gameObject);
 	}
 
 	void BasicAttack(){
+		InitiateAction (basicAttackDuration);
 		anim.SetTrigger ("basicAttack");
 		basicAttackObj.SetActive (true);
 		basicAttackCont.SetAttackHitbox (true);
 		basicAttackActive = true;
-		timeUntilActionable = basicAttackDuration;
-		rb.velocity = Vector3.zero;
+
 	}
 
 	public void TakeHit(int damageTaken, float baseKnockback, float knockbackGrowth, Vector3 knockbackVector){
@@ -111,5 +149,11 @@ public class PlayerController : MonoBehaviour {
 		rb.velocity = knockbackMagnitude * knockbackVector;
 		inHitstun = true;
 		GetComponent<SpriteRenderer> ().color = Color.red;
+	}
+
+	void InitiateAction(float actionDuration){
+		timeUntilActionable = actionDuration;
+		rb.velocity = Vector3.zero;
+		actionInProcess = true;
 	}
 }
