@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour {
 	private Animator anim;
 	public List<string> playerToys; 
 	public GameObject fireballPrefab;
+	public float lungeSpeed;
+	public float lungeDuration;
+	public float lungeCooldown;
 
 	public int damage;
 	private float timeUntilActionable;
@@ -54,9 +57,7 @@ public class PlayerController : MonoBehaviour {
 				GetComponent<SpriteRenderer> ().color = Color.white;
 			}
 			if (basicAttackActive) {
-				basicAttackCont.SetAttackHitbox (false);
-				basicAttackObj.SetActive (false);
-				basicAttackActive = false;
+				SetBasicAttackStuffActive (false);
 			}
 			if (actionInProcess) {
 				actionInProcess = false;
@@ -95,6 +96,7 @@ public class PlayerController : MonoBehaviour {
 			ability2CooldownCounter -= Time.deltaTime;
 		}
 		else if (Input.GetButtonDown("Ability2_P" + playerNum)){
+			ability2CooldownCounter = Lunge ();
 		}
 	}
 
@@ -129,6 +131,18 @@ public class PlayerController : MonoBehaviour {
 		return fc.cooldown;
 	}
 
+	float Lunge(){
+		InitiateAction (lungeDuration);
+		int directionFacing = 1;
+		if (transform.localScale.x > 0) {
+			directionFacing *= -1;
+		}
+		rb.velocity = directionFacing * lungeSpeed * Vector3.right;
+		anim.SetTrigger ("Lunge");
+		SetBasicAttackStuffActive (true);
+		return lungeCooldown;
+	}
+
 	void Die(){
 		Destroy (gameObject);
 	}
@@ -136,10 +150,13 @@ public class PlayerController : MonoBehaviour {
 	void BasicAttack(){
 		InitiateAction (basicAttackDuration);
 		anim.SetTrigger ("basicAttack");
-		basicAttackObj.SetActive (true);
-		basicAttackCont.SetAttackHitbox (true);
-		basicAttackActive = true;
+		SetBasicAttackStuffActive (true);
+	}
 
+	void SetBasicAttackStuffActive(bool status){
+		basicAttackObj.SetActive (status);
+		basicAttackCont.SetAttackHitbox (status);
+		basicAttackActive = status;
 	}
 
 	public void TakeHit(int damageTaken, float baseKnockback, float knockbackGrowth, Vector3 knockbackVector){
