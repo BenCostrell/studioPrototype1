@@ -12,10 +12,18 @@ public class ToySceneManager : MonoBehaviour {
     public Vector3 player1Spawn;
     public Vector3 player2Spawn;
 
+    AudioSource audioSource;
+    AudioClip audioClip;
+
+    public AudioClip nerdVO;
+    public AudioClip rockstartVO;
+
     // Use this for initialization
     void Start()
     {
         InitializePlayers();
+        audioSource = Camera.main.GetComponent<AudioSource>();
+        audioClip = Camera.main.GetComponent<AudioClip>();
     }
 
     // Update is called once per frame
@@ -23,7 +31,13 @@ public class ToySceneManager : MonoBehaviour {
     {
         if (player1.GetComponent<PlayerController>().playerToys.Count == 2 && player2.GetComponent<PlayerController>().playerToys.Count == 2)
         {
-            StartVoiceOvers();
+            VoiceOverDebug();
+
+            if (audioSource.isPlaying == false)
+            {
+                StartPlayerOneVO();
+            }
+
         }
     }
 
@@ -40,7 +54,77 @@ public class ToySceneManager : MonoBehaviour {
 
     }
 
-    void StartVoiceOvers()
+    string GetArchetype(List<string> toyList)
+    {
+        if (toyList.Contains("Cat") && toyList.Contains("Calculator"))
+        {
+            return "Nerd";
+        }
+
+        if (toyList.Contains("Cat") && toyList.Contains("Kazoo"))
+        {
+            return "JD Salinger";
+        }
+
+        if (toyList.Contains("Cat") && toyList.Contains("Dog"))
+        {
+            return "David";
+        }
+
+        if (toyList.Contains("Dog") && toyList.Contains("Calculator"))
+        {
+            return "Politician";
+        }
+
+        if (toyList.Contains("Dog") && toyList.Contains("Kazoo"))
+        {
+            return "Rockstar";
+        }
+
+        if (toyList.Contains("Kazoo") && toyList.Contains("Calculator"))
+        {
+            return "Architect";
+        }
+
+        return "";
+    }
+
+    void StartPlayerOneVO()
+    {
+        string player1Archetype = GetArchetype(player1.GetComponent<PlayerController>().playerToys);
+        if (player1Archetype == "Nerd")
+        {
+            Debug.Log("NERD VO IS PLAYING");
+            audioSource.clip = nerdVO;
+            audioSource.Play();
+            StartCoroutine(waitToPlay(audioSource.clip.length));
+            Debug.Log("audio is playing = " + audioSource.isPlaying);
+        }
+    }
+
+    void StartPlayerTwoVO()
+    {
+        Debug.Log("StartPlayerTwoVO is working");
+        string player2Archetype = GetArchetype(player2.GetComponent<PlayerController>().playerToys);
+        if (player2Archetype == "Rockstar")
+        {
+            Debug.Log("ROCKSTAR VO IS PLAYING");
+            audioSource.clip = rockstartVO;
+            audioSource.Play();
+            Debug.Log("audio is playing = " + audioSource.isPlaying);
+        }
+    }
+
+    IEnumerator waitToPlay(float time)
+    {
+        Debug.Log(time);
+        yield return new WaitForSeconds(time);
+        StartPlayerTwoVO();
+    }
+
+
+
+    void VoiceOverDebug()
     {
         Debug.Log("Player1 has the " + player1.GetComponent<PlayerController>().playerToys[0] + " and the " + player1.GetComponent<PlayerController>().playerToys[1]);
 
