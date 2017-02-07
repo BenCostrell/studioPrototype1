@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Ability : MonoBehaviour {
 
+	public enum Type {BasicAttack, Fireball, Lunge, Sing, Shield};
+
 	public float cooldown;
 	public GameObject parentPlayer;
 	public float castDuration;

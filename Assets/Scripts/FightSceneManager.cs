@@ -13,9 +13,12 @@ public class FightSceneManager : MonoBehaviour {
 	public Vector3 player2Spawn;
 	public RuntimeAnimatorController player1Anim;
 	public RuntimeAnimatorController player2Anim;
+	private GameObject gameInfo;
+
 
 	// Use this for initialization
 	void Awake () {
+		gameInfo = GameObject.FindGameObjectWithTag ("GameInfo");
 		InitializePlayers ();
 	}
 	
@@ -28,14 +31,19 @@ public class FightSceneManager : MonoBehaviour {
 
 	void InitializePlayers(){
 		player1 = Instantiate (playerPrefab, player1Spawn, Quaternion.identity) as GameObject;
+		PlayerController pc1 = player1.GetComponent<PlayerController> ();
 		player1.GetComponent<SpriteRenderer> ().sprite = player1Sprite;
-		player1.GetComponent<PlayerController> ().playerNum = 1;
+		pc1.playerNum = 1;
 		player1.GetComponent<Animator> ().runtimeAnimatorController = player1Anim;
+		pc1.abilityList = gameInfo.GetComponent<GameInfo> ().player1Abilities;
 
 		player2 = Instantiate (playerPrefab, player2Spawn, Quaternion.identity) as GameObject;
+		PlayerController pc2 = player2.GetComponent<PlayerController> ();
 		player2.GetComponent<SpriteRenderer> ().sprite = player2Sprite;
-		player2.GetComponent<PlayerController> ().playerNum = 2;
+		pc2.playerNum = 2;
 		player2.GetComponent<Animator> ().runtimeAnimatorController = player2Anim;
+		pc2.abilityList = gameInfo.GetComponent<GameInfo> ().player2Abilities;
+
 
 	}
 }

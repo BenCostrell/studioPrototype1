@@ -15,10 +15,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject musicBubblePrefab;
 	public GameObject shieldPrefab;
 
-	private enum Ability {BasicAttack, Fireball, Lunge, Sing, Shield};
-
-	private Ability ability1;
-	private Ability ability2;
+	public List<Ability.Type> abilityList;
 
 	public int damage;
 	private float timeUntilActionable;
@@ -42,9 +39,7 @@ public class PlayerController : MonoBehaviour {
 		actionInProcess = false;
 
 		playerToys = new List<string>(); 
-
-		SetAbilities (Ability.Lunge, Ability.Shield);
-
+		abilityList = new List<Ability.Type> ();
 	}
 	
 	// Update is called once per frame
@@ -65,11 +60,6 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	void SetAbilities(Ability ab1, Ability ab2){
-		ability1 = ab1;
-		ability2 = ab2;
-	}
-
 	void Move(){
 		Vector2 direction = new Vector2 (Input.GetAxisRaw ("Horizontal_P" + playerNum), Input.GetAxisRaw ("Vertical_P" + playerNum));
 
@@ -87,21 +77,21 @@ public class PlayerController : MonoBehaviour {
 			basicAttackCooldownCounter -= Time.deltaTime;
 		}
 		else if (Input.GetButtonDown("BasicAttack_P" + playerNum)){
-			basicAttackCooldownCounter = DoAbility (Ability.BasicAttack);
+			basicAttackCooldownCounter = DoAbility (Ability.Type.BasicAttack);
 		}
 
 		if (ability1CooldownCounter > 0) {
 			ability1CooldownCounter -= Time.deltaTime;
-		}
-		else if (Input.GetButtonDown("Ability1_P" + playerNum)){
-			ability1CooldownCounter = DoAbility (ability1);
-		}
+		} else if (abilityList.Count > 0) {
+			if (Input.GetButtonDown ("Ability1_P" + playerNum)) {
+				ability1CooldownCounter = DoAbility (abilityList [0]);
+			}
 
-		if (ability2CooldownCounter > 0) {
-			ability2CooldownCounter -= Time.deltaTime;
-		}
-		else if (Input.GetButtonDown("Ability2_P" + playerNum)){
-			ability2CooldownCounter = DoAbility (ability2);
+			if (ability2CooldownCounter > 0) {
+				ability2CooldownCounter -= Time.deltaTime;
+			} else if (Input.GetButtonDown ("Ability2_P" + playerNum)) {
+				ability2CooldownCounter = DoAbility (abilityList [1]);
+			}
 		}
 	}
 
@@ -128,16 +118,16 @@ public class PlayerController : MonoBehaviour {
 		isInvulnerable = false;
 	}
 
-	float DoAbility(Ability ab){
-		if (ab == Ability.BasicAttack) {
+	float DoAbility(Ability.Type ab){
+		if (ab == Ability.Type.BasicAttack) {
 			return BasicAttack ();
-		} else if (ab == Ability.Fireball) {
+		} else if (ab == Ability.Type.Fireball) {
 			return ThrowFireball ();
-		} else if (ab == Ability.Lunge) {
+		} else if (ab == Ability.Type.Lunge) {
 			return Lunge ();
-		} else if (ab == Ability.Sing) {
+		} else if (ab == Ability.Type.Sing) {
 			return Sing ();
-		} else if (ab == Ability.Shield) {
+		} else if (ab == Ability.Type.Shield) {
 			return Shield ();
 		}
 		return 0f;

@@ -13,7 +13,12 @@ public class ToySceneManager : MonoBehaviour {
     public GameObject playerPrefab;
     public Vector3 player1Spawn;
     public Vector3 player2Spawn;
+	public RuntimeAnimatorController player1Anim;
+	public RuntimeAnimatorController player2Anim;
     public Image transitionImage;
+
+	public GameObject gameInfo;
+	private Dictionary<string, Ability.Type> toyAbilityDict;
 
     AudioSource audioSource;
     AudioClip audioClip;
@@ -31,7 +36,8 @@ public class ToySceneManager : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        InitializePlayers();
+		CreateToyAbilityDict ();
+		InitializePlayers();
         audioSource = Camera.main.GetComponent<AudioSource>();
         audioClip = Camera.main.GetComponent<AudioClip>();
 
@@ -67,13 +73,22 @@ public class ToySceneManager : MonoBehaviour {
         player1 = Instantiate(playerPrefab, player1Spawn, Quaternion.identity) as GameObject;
         player1.GetComponent<SpriteRenderer>().sprite = player1Sprite;
         player1.GetComponent<PlayerController>().playerNum = 1;
+		player1.GetComponent<Animator> ().runtimeAnimatorController = player1Anim;
 
         player2 = Instantiate(playerPrefab, player2Spawn, Quaternion.identity) as GameObject;
         player2.GetComponent<SpriteRenderer>().sprite = player2Sprite;
         player2.GetComponent<PlayerController>().playerNum = 2;
-
-
+		player2.GetComponent<Animator> ().runtimeAnimatorController = player2Anim;
     }
+
+	void CreateToyAbilityDict(){
+		toyAbilityDict = new Dictionary<string, Ability.Type> ();
+
+		toyAbilityDict.Add ("Cat", Ability.Type.Shield);
+		toyAbilityDict.Add ("Dog", Ability.Type.Lunge);
+		toyAbilityDict.Add ("Kazoo", Ability.Type.Sing);
+		toyAbilityDict.Add ("Calculator", Ability.Type.Fireball);
+	}
 
     string GetArchetype(List<string> toyList)
     {
@@ -248,10 +263,26 @@ public class ToySceneManager : MonoBehaviour {
     IEnumerator ChangeScene(float time)
     {
         yield return new WaitForSeconds(time);
+		SetGameInfo ();
+		DontDestroyOnLoad (gameInfo);
         SceneManager.LoadScene("fightRoom");
     }
 
+	void SetGameInfo(){
+		GameInfo gi = gameInfo.GetComponent<GameInfo> ();
+		gi.player1Abilities = GetAbilityListFromToyList(player1.GetComponent<PlayerController>().playerToys);
+		gi.player2Abilities = GetAbilityListFromToyList(player2.GetComponent<PlayerController>().playerToys);
+	}
 
+	List<Ability.Type> GetAbilityListFromToyList(List<string> toylist){
+		List<Ability.Type> abilityList = new List<Ability.Type> ();
+		foreach (string toy in toylist) {
+			Ability.Type ability; 
+			toyAbilityDict.TryGetValue (toy, out ability);
+			abilityList.Add (ability);
+		}
+		return abilityList;
+	}
 
     void VoiceOverDebug()
     {

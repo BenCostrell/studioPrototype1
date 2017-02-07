@@ -594,6 +594,48 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1083103348}
+--- !u!1 &1621503805
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1621503807}
+  - component: {fileID: 1621503806}
+  m_Layer: 0
+  m_Name: GameInfo
+  m_TagString: GameInfo
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1621503806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1621503805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36ca63120cba574439f6b0f34300f6e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player1Abilities: 
+  player2Abilities: 
+--- !u!4 &1621503807
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1621503805}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.019085268, y: 0.02862748, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1806404416
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,13 +751,16 @@ MonoBehaviour:
     type: 2}
   player1Spawn: {x: -1, y: -1, z: 0}
   player2Spawn: {x: 1, y: -1, z: 0}
+  player1Anim: {fileID: 9100000, guid: 0771b1473e81e144eaf985ec86d6495e, type: 2}
+  player2Anim: {fileID: 9100000, guid: 67eaf806daf2bf747b77e9e32629d312, type: 2}
   transitionImage: {fileID: 1083103350}
+  gameInfo: {fileID: 1621503805}
   nerdVO: {fileID: 8300000, guid: 304de2826cbf4e643889015a1cd9ae0e, type: 3}
   rockstarVO: {fileID: 8300000, guid: 94373828d582d5941909b60df0a3fbf0, type: 3}
-  davidVO: {fileID: 0}
-  jdSalingerVO: {fileID: 0}
-  politicianVO: {fileID: 0}
-  architectVO: {fileID: 0}
+  davidVO: {fileID: 8300000, guid: 304de2826cbf4e643889015a1cd9ae0e, type: 3}
+  jdSalingerVO: {fileID: 8300000, guid: 304de2826cbf4e643889015a1cd9ae0e, type: 3}
+  politicianVO: {fileID: 8300000, guid: 94373828d582d5941909b60df0a3fbf0, type: 3}
+  architectVO: {fileID: 8300000, guid: 94373828d582d5941909b60df0a3fbf0, type: 3}
 --- !u!4 &1909842949
 Transform:
   m_ObjectHideFlags: 0

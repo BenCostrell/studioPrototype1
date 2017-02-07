@@ -8,6 +8,7 @@ TagManager:
   - Arena
   - Toy
   - Attack
+  - GameInfo
   layers:
   - Default
   - TransparentFX
