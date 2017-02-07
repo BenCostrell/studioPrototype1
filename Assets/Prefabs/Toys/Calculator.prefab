@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50436405921928162}
   - component: {fileID: 61594169740522482}
   - component: {fileID: 114351015258669874}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Calculator
   m_TagString: Toy
   m_Icon: {fileID: 0}

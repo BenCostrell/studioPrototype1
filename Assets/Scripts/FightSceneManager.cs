@@ -19,6 +19,8 @@ public class FightSceneManager : MonoBehaviour {
 	public GameObject cooldownUIP1A2;
 	public GameObject cooldownUIP2A1;
 	public GameObject cooldownUIP2A2;
+	public GameObject damageUIP1;
+	public GameObject damageUIP2;
 	public Sprite fireballUI;
 	public Sprite lungeUI;
 	public Sprite shieldUI;
@@ -115,7 +117,19 @@ public class FightSceneManager : MonoBehaviour {
 		} else {
 			bar.gameObject.GetComponent<SpriteRenderer> ().color = Color.green;
 		}
+	}
 
+	public void UpdateDamageUI(GameObject player){
+		PlayerController pc = player.GetComponent<PlayerController> ();
+		GameObject damageUI = null;
+		if (pc.playerNum == 1) {
+			damageUI = damageUIP1;
+		} else if (pc.playerNum == 2) {
+			damageUI = damageUIP2;
+		}
+		if (damageUI != null) {
+			damageUI.GetComponent<TextMesh> ().text = pc.damage.ToString();
+		}
 	}
 
 }

@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour {
 			basicAttackCooldownCounter = DoAbility (Ability.Type.BasicAttack);
 		}
 
-		if (abilityList != null) {
+		if (inFightScene) {
 			if (Input.GetButtonDown ("Ability1_P" + playerNum) && !ability1OnCooldown) {
 				ability1CooldownCounter = DoAbility (abilityList [0]);
 				ability1OnCooldown = true;
@@ -218,6 +218,7 @@ public class PlayerController : MonoBehaviour {
 		float knockbackMagnitude = baseKnockback + (knockbackGrowth * damage * knockbackDamageGrowthFactor);
 		Stun(knockbackMagnitude * hitstunFactor);
 		rb.velocity = knockbackMagnitude * knockbackVector;
+		fightSceneManager.UpdateDamageUI (gameObject);
 	}
 
 	public void Stun(float hitstun){
