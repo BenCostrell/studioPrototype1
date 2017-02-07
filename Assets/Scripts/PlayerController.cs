@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour {
 
 	public List<Ability.Type> abilityList;
 
+	public bool inFightScene;
+	private FightSceneManager fightSceneManager;
 	public int damage;
 	private float timeUntilActionable;
 	public float hitstunFactor;
@@ -25,8 +27,12 @@ public class PlayerController : MonoBehaviour {
 	private bool inHitstun;
 	private bool actionInProcess;
 	private float basicAttackCooldownCounter;
+	private float ability1BaseCooldown;
+	private float ability2BaseCooldown;
 	private float ability1CooldownCounter;
 	private float ability2CooldownCounter;
+	private bool ability1OnCooldown;
+	private bool ability2OnCooldown;
 
 	// Use this for initialization
 	void Start () {
@@ -39,10 +45,19 @@ public class PlayerController : MonoBehaviour {
 		actionInProcess = false;
 
 		playerToys = new List<string>(); 
+
+		if (inFightScene) {
+			fightSceneManager = GameObject.FindWithTag ("FightSceneManager").GetComponent<FightSceneManager>();
+			ability1BaseCooldown = 1;
+			ability2BaseCooldown = 1;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (inFightScene) {
+			ProcessAbilityCooldowns ();
+		}
 		if (timeUntilActionable > 0) {
 			timeUntilActionable -= Time.deltaTime;
 		} else {
@@ -71,6 +86,27 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	void ProcessAbilityCooldowns(){
+		if (abilityList != null) {
+			if (ability1CooldownCounter > 0) {
+				ability1CooldownCounter -= Time.deltaTime;
+			} else {
+				ability1OnCooldown = false;
+			}
+
+			fightSceneManager.UpdateCooldownBar (playerNum, 1, ability1CooldownCounter / ability1BaseCooldown);
+
+			if (ability2CooldownCounter > 0) {
+				ability2CooldownCounter -= Time.deltaTime;
+			} else {
+				ability2OnCooldown = false;
+			}
+
+			fightSceneManager.UpdateCooldownBar (playerNum, 2, ability2CooldownCounter / ability2BaseCooldown);
+
+		}
+	}
+
 	void DetectActionInput(){
 		if (basicAttackCooldownCounter > 0) {
 			basicAttackCooldownCounter -= Time.deltaTime;
@@ -80,17 +116,14 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		if (abilityList != null) {
-			if (ability1CooldownCounter > 0) {
-			ability1CooldownCounter -= Time.deltaTime;
-			} else 
-			if (Input.GetButtonDown ("Ability1_P" + playerNum)) {
+			if (Input.GetButtonDown ("Ability1_P" + playerNum) && !ability1OnCooldown) {
 				ability1CooldownCounter = DoAbility (abilityList [0]);
-			}
-
-			if (ability2CooldownCounter > 0) {
-				ability2CooldownCounter -= Time.deltaTime;
-			} else if (Input.GetButtonDown ("Ability2_P" + playerNum)) {
+				ability1OnCooldown = true;
+				ability1BaseCooldown = ability1CooldownCounter;
+			} else if (Input.GetButtonDown ("Ability2_P" + playerNum) && !ability2OnCooldown) {
 				ability2CooldownCounter = DoAbility (abilityList [1]);
+				ability2OnCooldown = true;
+				ability2BaseCooldown = ability2CooldownCounter;
 			}
 		}
 	}

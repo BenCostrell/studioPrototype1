@@ -9,6 +9,7 @@ TagManager:
   - Toy
   - Attack
   - GameInfo
+  - FightSceneManager
   layers:
   - Default
   - TransparentFX
