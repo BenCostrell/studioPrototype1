@@ -31,23 +31,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1760617923843810
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4989675787896810}
-  - component: {fileID: 61359024803943500}
-  - component: {fileID: 114655649439137138}
-  m_Layer: 0
-  m_Name: BasicAttack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &4000010912086626
 Transform:
   m_ObjectHideFlags: 1
@@ -57,22 +40,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_Children:
-  - {fileID: 4989675787896810}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4989675787896810
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1760617923843810}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.85, y: -0.29, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4000010912086626}
+  m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50000011036255098
@@ -109,20 +78,6 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 2.7913673, y: 4.63}
---- !u!61 &61359024803943500
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1760617923843810}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 0.2671901, y: 0.06679751}
-  serializedVersion: 2
-  m_Size: {x: 1.8015707, y: 0.866405}
 --- !u!95 &95939446260299522
 Animator:
   serializedVersion: 3
@@ -153,33 +108,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   playerNum: 0
+  anim: {fileID: 0}
   playerToys: []
+  basicAttackPrefab: {fileID: 1825282077941030, guid: 10c387e3d0052e248b73d47b736a8ee7,
+    type: 2}
+  lungePrefab: {fileID: 1811806750741508, guid: c54f6f5ead86f444da2e22651d3d3726,
+    type: 2}
   fireballPrefab: {fileID: 1387515170855940, guid: 4df8c9949f73d584c9aae984459ce8d8,
     type: 2}
   musicBubblePrefab: {fileID: 1152909143943310, guid: 82a7ef6821145d343bfbd44ec4844d0d,
     type: 2}
-  lungeSpeed: 20
-  lungeDuration: 0.2
-  lungeCooldown: 1
   damage: 0
   hitstunFactor: 0.03
   knockbackDamageGrowthFactor: 0.3
-  basicAttackDuration: 0.2
---- !u!114 &114655649439137138
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1760617923843810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9f9c7b35f924914b9419638004c0211, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 2
-  baseKnockback: 8
-  knockbackGrowth: 1
-  hitboxActive: 0
 --- !u!212 &212000012149396008
 SpriteRenderer:
   m_ObjectHideFlags: 1

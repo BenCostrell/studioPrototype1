@@ -7,15 +7,14 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody2D rb;
 	public float speed;
 	public int playerNum;
-	private Animator anim;
+	public Animator anim;
 	public List<string> playerToys; 
+	public GameObject basicAttackPrefab;
+	public GameObject lungePrefab;
 	public GameObject fireballPrefab;
 	public GameObject musicBubblePrefab;
-	public float lungeSpeed;
-	public float lungeDuration;
-	public float lungeCooldown;
 
-	private enum Ability {Fireball, Lunge, Sing, Shield};
+	private enum Ability {BasicAttack, Fireball, Lunge, Sing, Shield};
 
 	private Ability ability1;
 	private Ability ability2;
@@ -25,11 +24,8 @@ public class PlayerController : MonoBehaviour {
 	public float hitstunFactor;
 	public float knockbackDamageGrowthFactor;
 	private bool inHitstun;
-	private GameObject basicAttackObj;
-	private BasicAttackController basicAttackCont;
-	public float basicAttackDuration;
-	private bool basicAttackActive;
 	private bool actionInProcess;
+	private float basicAttackCooldownCounter;
 	private float ability1CooldownCounter;
 	private float ability2CooldownCounter;
 
@@ -43,14 +39,9 @@ public class PlayerController : MonoBehaviour {
 		inHitstun = false;
 		actionInProcess = false;
 
-		basicAttackObj = transform.GetChild (0).gameObject;
-		basicAttackCont = GetComponentInChildren<BasicAttackController> ();
-		basicAttackObj.SetActive (false);
-		basicAttackActive = false;
-
 		playerToys = new List<string>(); 
 
-		SetAbilities (Ability.Fireball, Ability.Sing);
+		SetAbilities (Ability.Fireball, Ability.Lunge);
 
 	}
 	
@@ -63,9 +54,6 @@ public class PlayerController : MonoBehaviour {
 				rb.velocity = Vector3.zero;
 				inHitstun = false;
 				GetComponent<SpriteRenderer> ().color = Color.white;
-			}
-			if (basicAttackActive) {
-				SetBasicAttackStuffActive (false);
 			}
 			if (actionInProcess) {
 				actionInProcess = false;
@@ -94,8 +82,11 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void DetectActionInput(){
-		if (Input.GetButtonDown ("BasicAttack_P" + playerNum)) {
-			BasicAttack ();
+		if (basicAttackCooldownCounter > 0) {
+			basicAttackCooldownCounter -= Time.deltaTime;
+		}
+		else if (Input.GetButtonDown("BasicAttack_P" + playerNum)){
+			basicAttackCooldownCounter = DoAbility (Ability.BasicAttack);
 		}
 
 		if (ability1CooldownCounter > 0) {
@@ -130,7 +121,9 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	float DoAbility(Ability ab){
-		if (ab == Ability.Fireball) {
+		if (ab == Ability.BasicAttack) {
+			return BasicAttack ();
+		} else if (ab == Ability.Fireball) {
 			return ThrowFireball ();
 		} else if (ab == Ability.Lunge) {
 			return Lunge ();
@@ -142,6 +135,15 @@ public class PlayerController : MonoBehaviour {
 		return 0f;
 	}
 
+
+
+	float BasicAttack(){
+		GameObject basicAttack = Instantiate (basicAttackPrefab, transform, false);
+		BasicAttack ba = basicAttack.GetComponent<BasicAttack> ();
+		ba.Init (gameObject);
+		return ba.cooldown;
+	}
+
 	float ThrowFireball(){
 		int directionFacing = 1;
 		if (transform.localScale.x > 0) {
@@ -149,32 +151,23 @@ public class PlayerController : MonoBehaviour {
 		}
 		Vector3 fireballOffset = directionFacing * 2 * Vector3.right;
 		GameObject fireball = Instantiate (fireballPrefab, transform.position + fireballOffset, Quaternion.identity);
-		FireballController fc = fireball.GetComponent<FireballController> ();
-		fc.InitializeTrajectory (directionFacing);
+		Fireball fc = fireball.GetComponent<Fireball> ();
+		fc.Init (gameObject);
 
-		anim.SetTrigger ("ThrowFireball");
-		InitiateAction (fireball.GetComponent<FireballController> ().animationDuration);
 		return fc.cooldown;
 	}
 
 	float Lunge(){
-		InitiateAction (lungeDuration);
-		int directionFacing = 1;
-		if (transform.localScale.x > 0) {
-			directionFacing *= -1;
-		}
-		rb.velocity = directionFacing * lungeSpeed * Vector3.right;
-		anim.SetTrigger ("Lunge");
-		SetBasicAttackStuffActive (true);
-		return lungeCooldown;
+		GameObject lunge = Instantiate (lungePrefab, transform, false);
+		Lunge lun = lunge.GetComponent<Lunge> ();
+		lun.Init (gameObject);
+		return lun.cooldown;
 	}
 
 	float Sing(){
 		GameObject musicBubble = Instantiate (musicBubblePrefab, transform.position, Quaternion.identity);
-		MusicBubbleController mb = musicBubble.GetComponent<MusicBubbleController> ();
-		InitiateAction (mb.castDuration);
-		mb.parentPlayerNum = playerNum;
-		anim.SetTrigger ("Sing");
+		MusicBubble mb = musicBubble.GetComponent<MusicBubble> ();
+		mb.Init (gameObject);
 		return mb.cooldown;
 	}
 
@@ -186,17 +179,8 @@ public class PlayerController : MonoBehaviour {
 		Destroy (gameObject);
 	}
 
-	void BasicAttack(){
-		InitiateAction (basicAttackDuration);
-		anim.SetTrigger ("basicAttack");
-		SetBasicAttackStuffActive (true);
-	}
 
-	void SetBasicAttackStuffActive(bool status){
-		basicAttackObj.SetActive (status);
-		basicAttackCont.SetAttackHitbox (status);
-		basicAttackActive = status;
-	}
+		
 
 	public void TakeHit(int damageTaken, float baseKnockback, float knockbackGrowth, Vector3 knockbackVector){
 		damage += damageTaken;
@@ -212,7 +196,7 @@ public class PlayerController : MonoBehaviour {
 		GetComponent<SpriteRenderer> ().color = Color.red;
 	}
 
-	void InitiateAction(float actionDuration){
+	public void InitiateAction(float actionDuration){
 		timeUntilActionable = actionDuration;
 		rb.velocity = Vector3.zero;
 		actionInProcess = true;

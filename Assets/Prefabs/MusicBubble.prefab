@@ -20,11 +20,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4237793545133114}
   - component: {fileID: 212466182881504064}
-  - component: {fileID: 114482718494767002}
   - component: {fileID: 58464627892741314}
+  - component: {fileID: 114637048917475198}
   m_Layer: 0
   m_Name: MusicBubble
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,7 +56,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2.5
---- !u!114 &114482718494767002
+--- !u!114 &114637048917475198
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -64,14 +64,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1152909143943310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18ceba1920a287f47aaf431a31f5bf1c, type: 3}
+  m_Script: {fileID: 11500000, guid: ac097ebc9c76d4d438b8bef49e001692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stunDuration: 2
-  lifeDuration: 3
-  cooldown: 3
-  castDuration: 0.2
-  parentPlayerNum: 0
+  cooldown: 0
+  parentPlayer: {fileID: 0}
+  castDuration: 0
+  animTrigger: 
+  stunDuration: 0
+  lifeDuration: 0
 --- !u!212 &212466182881504064
 SpriteRenderer:
   m_ObjectHideFlags: 1
