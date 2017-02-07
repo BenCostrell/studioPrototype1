@@ -739,7 +739,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1083103348}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -931,18 +931,18 @@ MonoBehaviour:
   player2Anim: {fileID: 9100000, guid: 67eaf806daf2bf747b77e9e32629d312, type: 2}
   transitionImage: {fileID: 1083103350}
   gameInfo: {fileID: 1621503805}
-  elderNerdVO: {fileID: 8300000, guid: f00e963285853054e86efc0a15156db0, type: 3}
-  elderRockstarVO: {fileID: 8300000, guid: e5ec3470352578043b4e1e547e33c433, type: 3}
-  elderDavidVO: {fileID: 8300000, guid: 314bf430a37de004eb22ca639d70e363, type: 3}
-  elderJdSalingerVO: {fileID: 8300000, guid: efa15e86065fb2843b50f6638ca337a3, type: 3}
-  elderPoliticianVO: {fileID: 8300000, guid: dbde3896c26f7214fad22add73bfb6f7, type: 3}
-  elderArchitectVO: {fileID: 8300000, guid: 3abaf377ff18b7f408e9d9d39feb3702, type: 3}
-  youngerNerdVO: {fileID: 8300000, guid: 304de2826cbf4e643889015a1cd9ae0e, type: 3}
-  youngerRockstarVO: {fileID: 8300000, guid: 24938f15ac094bd41848348e06b53b13, type: 3}
-  youngerDavidVO: {fileID: 8300000, guid: 6a2d9405311a33e489c6fd72ae73444e, type: 3}
-  youngerJdSalingerVO: {fileID: 8300000, guid: b3e842a12edba7744b384e1b28514079, type: 3}
-  youngerPoliticianVO: {fileID: 8300000, guid: 9410e220fe1d4fc4b9c50e6f8b5741bc, type: 3}
-  youngerArchitectVO: {fileID: 8300000, guid: cc1c2d60f2e3de043b9c9a0f26bd86be, type: 3}
+  elderNerdVO: {fileID: 8300000, guid: 9de630e68d1346b40b6054ff00f4dc99, type: 3}
+  elderRockstarVO: {fileID: 8300000, guid: e4382c05d8047ec4f91bd70a52332529, type: 3}
+  elderDavidVO: {fileID: 8300000, guid: 4624aca5e4523624d8b5bf85b961fa81, type: 3}
+  elderJdSalingerVO: {fileID: 8300000, guid: cddfe68c09f13804c8e289c1097b3ece, type: 3}
+  elderPoliticianVO: {fileID: 8300000, guid: fa8c2f99034502640b359afffa154605, type: 3}
+  elderArchitectVO: {fileID: 8300000, guid: e6f38d47cd07d374ca696a9ca0055eda, type: 3}
+  youngerNerdVO: {fileID: 8300000, guid: 31eec2640ce7ced46bfaf6746c7bbe73, type: 3}
+  youngerRockstarVO: {fileID: 8300000, guid: 1d10e000a9c5f9e49859e13cd85d6fe3, type: 3}
+  youngerDavidVO: {fileID: 8300000, guid: 88417071f09d94040905adfe7c587245, type: 3}
+  youngerJdSalingerVO: {fileID: 8300000, guid: b8c5c5f430887ef4f9866a884df8be3a, type: 3}
+  youngerPoliticianVO: {fileID: 8300000, guid: 9018ef64f608522408d15e1f35fb2e04, type: 3}
+  youngerArchitectVO: {fileID: 8300000, guid: 05f51e60e65532c4d82fe2519f3491e6, type: 3}
 --- !u!4 &1909842949
 Transform:
   m_ObjectHideFlags: 0
