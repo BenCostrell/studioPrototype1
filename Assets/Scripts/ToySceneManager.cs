@@ -74,8 +74,8 @@ public class ToySceneManager : MonoBehaviour {
         {
             Debug.Log("FadeToBlack");
             timeElapsed += Time.deltaTime;
-            transitionImage.canvasRenderer.SetAlpha(Mathf.Lerp(0, 1, timeElapsed / 2));
-            StartCoroutine(ChangeScene(2));
+            transitionImage.canvasRenderer.SetAlpha(Mathf.Lerp(0, 1, timeElapsed / (audioSource.clip.length)));
+            StartCoroutine(ChangeScene((audioSource.clip.length)));
         }
     }
 
@@ -203,7 +203,8 @@ public class ToySceneManager : MonoBehaviour {
             Debug.Log("ROCKSTAR VO IS PLAYING");
             audioSource.clip = youngerRockstarVO;
             audioSource.Play();
-            StartCoroutine(waitToTransition(audioSource.clip.length));
+            fadeToBlack = true;
+            //StartCoroutine(waitToTransition(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
         }
 
@@ -212,7 +213,8 @@ public class ToySceneManager : MonoBehaviour {
             Debug.Log("ARCHITECT VO IS PLAYING");
             audioSource.clip = youngerArchitectVO;
             audioSource.Play();
-            StartCoroutine(waitToTransition(audioSource.clip.length));
+            fadeToBlack = true;
+            //StartCoroutine(waitToTransition(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
         }
 
@@ -221,7 +223,8 @@ public class ToySceneManager : MonoBehaviour {
             Debug.Log("DAVID VO IS PLAYING");
             audioSource.clip = youngerDavidVO;
             audioSource.Play();
-            StartCoroutine(waitToTransition(audioSource.clip.length));
+            fadeToBlack = true;
+            //StartCoroutine(waitToTransition(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
         }
 
@@ -230,7 +233,8 @@ public class ToySceneManager : MonoBehaviour {
             Debug.Log("POLITICIAN VO IS PLAYING");
             audioSource.clip = youngerPoliticianVO;
             audioSource.Play();
-            StartCoroutine(waitToTransition(audioSource.clip.length));
+            fadeToBlack = true;
+            //StartCoroutine(waitToTransition(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
         }
 
@@ -239,7 +243,8 @@ public class ToySceneManager : MonoBehaviour {
             Debug.Log("ROCKSTAR VO IS PLAYING");
             audioSource.clip = youngerJdSalingerVO;
             audioSource.Play();
-            StartCoroutine(waitToTransition(audioSource.clip.length));
+            fadeToBlack = true;
+            //StartCoroutine(waitToTransition(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
         }
         if (player2Archetype == "Nerd")
@@ -247,15 +252,16 @@ public class ToySceneManager : MonoBehaviour {
             Debug.Log("NERD VO IS PLAYING");
             audioSource.clip = youngerNerdVO;
             audioSource.Play();
-            StartCoroutine(waitToTransition(audioSource.clip.length));
+            fadeToBlack = true;
+            //StartCoroutine(waitToTransition(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
         }
     }
 
-    void StartTransition()
-    {
-        fadeToBlack = true;
-    }
+    //void StartTransition()
+    //{
+    //    fadeToBlack = true;
+    //}
 
     IEnumerator waitToPlay(float time)
     {
@@ -264,12 +270,12 @@ public class ToySceneManager : MonoBehaviour {
         StartPlayerTwoVO();
     }
 
-    IEnumerator waitToTransition(float time)
-    {
-        yield return new WaitForSeconds(time);
-        audioSource.Stop();
-        StartTransition();
-    }
+    //IEnumerator waitToTransition(float time)
+    //{
+    //    yield return new WaitForSeconds(time);
+    //    audioSource.Stop();
+    //    StartTransition();
+    //}
 
     IEnumerator ChangeScene(float time)
     {
