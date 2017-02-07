@@ -39,7 +39,6 @@ public class PlayerController : MonoBehaviour {
 		actionInProcess = false;
 
 		playerToys = new List<string>(); 
-		abilityList = new List<Ability.Type> ();
 	}
 	
 	// Update is called once per frame
@@ -80,9 +79,10 @@ public class PlayerController : MonoBehaviour {
 			basicAttackCooldownCounter = DoAbility (Ability.Type.BasicAttack);
 		}
 
-		if (ability1CooldownCounter > 0) {
+		if (abilityList != null) {
+			if (ability1CooldownCounter > 0) {
 			ability1CooldownCounter -= Time.deltaTime;
-		} else if (abilityList.Count > 0) {
+			} else 
 			if (Input.GetButtonDown ("Ability1_P" + playerNum)) {
 				ability1CooldownCounter = DoAbility (abilityList [0]);
 			}

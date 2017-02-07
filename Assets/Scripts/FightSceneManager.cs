@@ -29,6 +29,7 @@ public class FightSceneManager : MonoBehaviour {
 		}
 	}
 
+
 	void InitializePlayers(){
 		player1 = Instantiate (playerPrefab, player1Spawn, Quaternion.identity) as GameObject;
 		PlayerController pc1 = player1.GetComponent<PlayerController> ();

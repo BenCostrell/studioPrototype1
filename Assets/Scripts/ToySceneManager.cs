@@ -264,7 +264,6 @@ public class ToySceneManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(time);
 		SetGameInfo ();
-		DontDestroyOnLoad (gameInfo);
         SceneManager.LoadScene("fightRoom");
     }
 
