@@ -1,10 +1,32 @@
 fileFormatVersion: 2
 guid: 4630d68bee321164ba708a2c6cf1a467
-timeCreated: 1486316243
+timeCreated: 1486498257
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - player1: {instanceID: 0}
+  - player2: {instanceID: 0}
+  - player1Sprite: {instanceID: 0}
+  - player2Sprite: {instanceID: 0}
+  - playerPrefab: {instanceID: 0}
+  - player1Anim: {instanceID: 0}
+  - player2Anim: {instanceID: 0}
+  - transitionImage: {instanceID: 0}
+  - gameInfo: {instanceID: 0}
+  - elderNerdVO: {instanceID: 0}
+  - elderRockstarVO: {instanceID: 0}
+  - elderDavidVO: {fileID: 8300000, guid: 314bf430a37de004eb22ca639d70e363, type: 3}
+  - elderJdSalingerVO: {instanceID: 0}
+  - elderPoliticianVO: {instanceID: 0}
+  - elderArchitectVO: {fileID: 8300000, guid: 3abaf377ff18b7f408e9d9d39feb3702, type: 3}
+  - youngerNerdVO: {instanceID: 0}
+  - youngerRockstarVO: {instanceID: 0}
+  - youngerDavidVO: {instanceID: 0}
+  - youngerJdSalingerVO: {instanceID: 0}
+  - youngerPoliticianVO: {instanceID: 0}
+  - youngerArchitectVO: {fileID: 8300000, guid: cc1c2d60f2e3de043b9c9a0f26bd86be,
+      type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

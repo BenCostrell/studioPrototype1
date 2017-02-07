@@ -23,12 +23,23 @@ public class ToySceneManager : MonoBehaviour {
     AudioSource audioSource;
     AudioClip audioClip;
 
-    public AudioClip nerdVO;
-    public AudioClip rockstarVO;
-    public AudioClip davidVO;
-    public AudioClip jdSalingerVO;
-    public AudioClip politicianVO;
-    public AudioClip architectVO;
+    //elder sister VO's
+    public AudioClip elderNerdVO;
+    public AudioClip elderRockstarVO;
+    public AudioClip elderDavidVO;
+    public AudioClip elderJdSalingerVO;
+    public AudioClip elderPoliticianVO;
+    public AudioClip elderArchitectVO;
+
+    //younger sister VO's
+    public AudioClip youngerNerdVO;
+    public AudioClip youngerRockstarVO;
+    public AudioClip youngerDavidVO;
+    public AudioClip youngerJdSalingerVO;
+    public AudioClip youngerPoliticianVO;
+    public AudioClip youngerArchitectVO;
+
+
 
     bool fadeToBlack;
     float timeElapsed;
@@ -131,7 +142,7 @@ public class ToySceneManager : MonoBehaviour {
         if (player1Archetype == "Nerd")
         {
             Debug.Log("NERD VO IS PLAYING");
-            audioSource.clip = nerdVO;
+            audioSource.clip = elderNerdVO;
             audioSource.Play();
             StartCoroutine(waitToPlay(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
@@ -140,7 +151,7 @@ public class ToySceneManager : MonoBehaviour {
         if (player1Archetype == "Rockstar")
         {
             Debug.Log("ROCKSTAR VO IS PLAYING");
-            audioSource.clip = rockstarVO;
+            audioSource.clip = elderRockstarVO;
             audioSource.Play();
             StartCoroutine(waitToPlay(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
@@ -149,7 +160,7 @@ public class ToySceneManager : MonoBehaviour {
         if (player1Archetype == "Architect")
         {
             Debug.Log("ARCHITECT VO IS PLAYING");
-            audioSource.clip = architectVO;
+            audioSource.clip = elderArchitectVO;
             audioSource.Play();
             StartCoroutine(waitToPlay(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
@@ -158,7 +169,7 @@ public class ToySceneManager : MonoBehaviour {
         if (player1Archetype == "David")
         {
             Debug.Log("DAVID VO IS PLAYING");
-            audioSource.clip = davidVO;
+            audioSource.clip = elderDavidVO;
             audioSource.Play();
             StartCoroutine(waitToPlay(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
@@ -167,7 +178,7 @@ public class ToySceneManager : MonoBehaviour {
         if (player1Archetype == "Politician")
         {
             Debug.Log("POLITICIAN VO IS PLAYING");
-            audioSource.clip = politicianVO;
+            audioSource.clip = elderPoliticianVO;
             audioSource.Play();
             StartCoroutine(waitToPlay(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
@@ -176,7 +187,7 @@ public class ToySceneManager : MonoBehaviour {
         if (player1Archetype == "JD Salinger")
         {
             Debug.Log("JD SALINGER VO IS PLAYING");
-            audioSource.clip = jdSalingerVO;
+            audioSource.clip = elderJdSalingerVO;
             audioSource.Play();
             StartCoroutine(waitToPlay(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
@@ -190,7 +201,7 @@ public class ToySceneManager : MonoBehaviour {
         if (player2Archetype == "Rockstar")
         {
             Debug.Log("ROCKSTAR VO IS PLAYING");
-            audioSource.clip = rockstarVO;
+            audioSource.clip = youngerRockstarVO;
             audioSource.Play();
             StartCoroutine(waitToTransition(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
@@ -199,7 +210,7 @@ public class ToySceneManager : MonoBehaviour {
         if (player2Archetype == "Architect")
         {
             Debug.Log("ARCHITECT VO IS PLAYING");
-            audioSource.clip = architectVO;
+            audioSource.clip = youngerArchitectVO;
             audioSource.Play();
             StartCoroutine(waitToTransition(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
@@ -208,7 +219,7 @@ public class ToySceneManager : MonoBehaviour {
         if (player2Archetype == "David")
         {
             Debug.Log("DAVID VO IS PLAYING");
-            audioSource.clip = davidVO;
+            audioSource.clip = youngerDavidVO;
             audioSource.Play();
             StartCoroutine(waitToTransition(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
@@ -217,7 +228,7 @@ public class ToySceneManager : MonoBehaviour {
         if (player2Archetype == "Politician")
         {
             Debug.Log("POLITICIAN VO IS PLAYING");
-            audioSource.clip = politicianVO;
+            audioSource.clip = youngerPoliticianVO;
             audioSource.Play();
             StartCoroutine(waitToTransition(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
@@ -226,7 +237,7 @@ public class ToySceneManager : MonoBehaviour {
         if (player2Archetype == "JD Salinger")
         {
             Debug.Log("ROCKSTAR VO IS PLAYING");
-            audioSource.clip = jdSalingerVO;
+            audioSource.clip = youngerJdSalingerVO;
             audioSource.Play();
             StartCoroutine(waitToTransition(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
@@ -234,7 +245,7 @@ public class ToySceneManager : MonoBehaviour {
         if (player2Archetype == "Nerd")
         {
             Debug.Log("NERD VO IS PLAYING");
-            audioSource.clip = nerdVO;
+            audioSource.clip = youngerNerdVO;
             audioSource.Play();
             StartCoroutine(waitToTransition(audioSource.clip.length));
             Debug.Log("audio is playing = " + audioSource.isPlaying);
