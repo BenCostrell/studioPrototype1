@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4627221793534460}
   - component: {fileID: 61259627524633994}
   - component: {fileID: 114277354249245154}
+  - component: {fileID: 50190434896686298}
+  - component: {fileID: 255149270539858736}
   m_Layer: 0
   m_Name: Lunge
   m_TagString: Attack
@@ -41,6 +43,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50190434896686298
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1811806750741508}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 0.0001
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!61 &61259627524633994
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -70,3 +92,23 @@ MonoBehaviour:
   parentPlayer: {fileID: 0}
   castDuration: 0
   animTrigger: 
+  hitPlayer1: 0
+  hitPlayer2: 0
+  isProjectile: 0
+--- !u!255 &255149270539858736
+FixedJoint2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1811806750741508}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_DampingRatio: 0
+  m_Frequency: 0

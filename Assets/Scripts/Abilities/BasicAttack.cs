@@ -19,6 +19,7 @@ public class BasicAttack : Attack {
 		baseKnockback = 8;
 		knockbackGrowth = 1;
 		damage = 2;
+		isProjectile = false;
 
 		base.Init (player);
 

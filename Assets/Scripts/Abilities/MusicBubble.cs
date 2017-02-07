@@ -26,6 +26,7 @@ public class MusicBubble : Attack {
 		baseKnockback = 0;
 		knockbackGrowth = 0;
 		damage = 0;
+		isProjectile = true;
 
 		base.Init (player);
 

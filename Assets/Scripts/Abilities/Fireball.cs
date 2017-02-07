@@ -5,7 +5,6 @@ using UnityEngine;
 public class Fireball : Attack {
 
 	private float speed;
-	private float direction;
 
 
 	// Use this for initialization
@@ -27,16 +26,17 @@ public class Fireball : Attack {
 		knockbackGrowth = 0.5f;
 		damage = 1;
 		speed = 10;
+		isProjectile = true;
 
 		base.Init (player);
 
-		direction = -1 * Mathf.Sign (player.transform.localScale.x);
+		float direction = -1 * Mathf.Sign (player.transform.localScale.x);
 		GetComponent<Rigidbody2D> ().velocity = direction * new Vector2 (speed, 0);
 		transform.localScale = new Vector3 (-direction * transform.localScale.x, transform.localScale.y, transform.localScale.z);
 	}
 
 	protected override Vector3 GetDirectionHit(GameObject playerHit){
-		return direction * Vector3.right;
+		return -1 * Mathf.Sign(transform.localScale.x) * Vector3.right;
 	}
 
 	protected override void HitPlayer(GameObject player){

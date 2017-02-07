@@ -91,6 +91,8 @@ MonoBehaviour:
   cooldown: 0
   parentPlayer: {fileID: 0}
   castDuration: 0
+  animTrigger: 
+  isProjectile: 0
 --- !u!212 &212668589737223458
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4469820782396146}
   - component: {fileID: 61865796611554620}
   - component: {fileID: 114013558749274920}
+  - component: {fileID: 50470215171816208}
   m_Layer: 0
   m_Name: BasicAttack
   m_TagString: Attack
@@ -41,6 +42,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50470215171816208
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1825282077941030}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61865796611554620
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -69,3 +90,7 @@ MonoBehaviour:
   cooldown: 0
   parentPlayer: {fileID: 0}
   castDuration: 0
+  animTrigger: 
+  hitPlayer1: 0
+  hitPlayer2: 0
+  isProjectile: 0

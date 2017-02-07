@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject lungePrefab;
 	public GameObject fireballPrefab;
 	public GameObject musicBubblePrefab;
+	public GameObject shieldPrefab;
 
 	private enum Ability {BasicAttack, Fireball, Lunge, Sing, Shield};
 
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour {
 	private float timeUntilActionable;
 	public float hitstunFactor;
 	public float knockbackDamageGrowthFactor;
+	public bool isInvulnerable;
 	private bool inHitstun;
 	private bool actionInProcess;
 	private float basicAttackCooldownCounter;
@@ -41,7 +43,7 @@ public class PlayerController : MonoBehaviour {
 
 		playerToys = new List<string>(); 
 
-		SetAbilities (Ability.Fireball, Ability.Lunge);
+		SetAbilities (Ability.Lunge, Ability.Shield);
 
 	}
 	
@@ -56,8 +58,7 @@ public class PlayerController : MonoBehaviour {
 				GetComponent<SpriteRenderer> ().color = Color.white;
 			}
 			if (actionInProcess) {
-				actionInProcess = false;
-				anim.SetTrigger ("ResetToNeutral");
+				ResetToNeutral ();
 			}
 			Move ();
 			DetectActionInput ();
@@ -114,10 +115,17 @@ public class PlayerController : MonoBehaviour {
 		} 
 
 	} 
+
 	void OnTriggerExit2D(Collider2D collider){
 		if (collider.tag == "Arena"){
 			Die ();
 		}
+	}
+
+	void ResetToNeutral(){
+		actionInProcess = false;
+		anim.SetTrigger ("ResetToNeutral");
+		isInvulnerable = false;
 	}
 
 	float DoAbility(Ability ab){
@@ -145,11 +153,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	float ThrowFireball(){
-		int directionFacing = 1;
-		if (transform.localScale.x > 0) {
-			directionFacing *= -1;
-		}
-		Vector3 fireballOffset = directionFacing * 2 * Vector3.right;
+		float direction = -1 * Mathf.Sign (transform.localScale.x);
+		Vector3 fireballOffset = direction * 1.5f * Vector3.right;
 		GameObject fireball = Instantiate (fireballPrefab, transform.position + fireballOffset, Quaternion.identity);
 		Fireball fc = fireball.GetComponent<Fireball> ();
 		fc.Init (gameObject);
@@ -172,7 +177,10 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	float Shield(){
-		return 0f;
+		GameObject shield = Instantiate (shieldPrefab, transform, false);
+		Shield sh = shield.GetComponent<Shield> ();
+		sh.Init (gameObject);
+		return sh.cooldown;
 	}
 
 	void Die(){

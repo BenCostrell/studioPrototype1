@@ -24,8 +24,10 @@ public class Lunge : Attack {
 		knockbackGrowth = 1;
 		damage = 2;
 		speed = 20;
+		isProjectile = false;
 
 		base.Init (player);
+		GetComponent<FixedJoint2D> ().connectedBody = player.GetComponent<Rigidbody2D> ();
 
 		float direction = -1 * Mathf.Sign (player.transform.localScale.x);
 		player.GetComponent<Rigidbody2D>().velocity = direction * speed * Vector3.right;
