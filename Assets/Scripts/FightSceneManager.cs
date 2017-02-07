@@ -53,7 +53,6 @@ public class FightSceneManager : MonoBehaviour {
 	void InitializePlayers(){
 		List<Ability.Type> p1TestList = new List<Ability.Type>(){Ability.Type.Fireball, Ability.Type.Lunge};
 		List<Ability.Type> p2TestList = new List<Ability.Type>(){Ability.Type.Sing, Ability.Type.Shield};
-		bool testMode = true;
 
 		player1 = Instantiate (playerPrefab, player1Spawn, Quaternion.identity) as GameObject;
 		PlayerController pc1 = player1.GetComponent<PlayerController> ();
@@ -61,7 +60,7 @@ public class FightSceneManager : MonoBehaviour {
 		player1.GetComponent<SpriteRenderer> ().sprite = player1Sprite;
 		pc1.playerNum = 1;
 		player1.GetComponent<Animator> ().runtimeAnimatorController = player1Anim;
-		if (testMode) {
+		if (gameInfo == null) {
 			pc1.abilityList = p1TestList;
 		} else {
 			pc1.abilityList = gameInfo.GetComponent<GameInfo> ().player1Abilities;
@@ -80,7 +79,7 @@ public class FightSceneManager : MonoBehaviour {
 		player2.GetComponent<SpriteRenderer> ().sprite = player2Sprite;
 		pc2.playerNum = 2;
 		player2.GetComponent<Animator> ().runtimeAnimatorController = player2Anim;
-		if (testMode) {
+		if (gameInfo == null) {
 			pc2.abilityList = p2TestList;
 		} else {
 			pc2.abilityList = gameInfo.GetComponent<GameInfo> ().player2Abilities;
