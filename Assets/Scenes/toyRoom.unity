@@ -755,12 +755,18 @@ MonoBehaviour:
   player2Anim: {fileID: 9100000, guid: 67eaf806daf2bf747b77e9e32629d312, type: 2}
   transitionImage: {fileID: 1083103350}
   gameInfo: {fileID: 1621503805}
-  nerdVO: {fileID: 8300000, guid: 304de2826cbf4e643889015a1cd9ae0e, type: 3}
-  rockstarVO: {fileID: 8300000, guid: 94373828d582d5941909b60df0a3fbf0, type: 3}
-  davidVO: {fileID: 8300000, guid: 304de2826cbf4e643889015a1cd9ae0e, type: 3}
-  jdSalingerVO: {fileID: 8300000, guid: 304de2826cbf4e643889015a1cd9ae0e, type: 3}
-  politicianVO: {fileID: 8300000, guid: 94373828d582d5941909b60df0a3fbf0, type: 3}
-  architectVO: {fileID: 8300000, guid: 94373828d582d5941909b60df0a3fbf0, type: 3}
+  elderNerdVO: {fileID: 8300000, guid: f00e963285853054e86efc0a15156db0, type: 3}
+  elderRockstarVO: {fileID: 8300000, guid: e5ec3470352578043b4e1e547e33c433, type: 3}
+  elderDavidVO: {fileID: 8300000, guid: 314bf430a37de004eb22ca639d70e363, type: 3}
+  elderJdSalingerVO: {fileID: 8300000, guid: efa15e86065fb2843b50f6638ca337a3, type: 3}
+  elderPoliticianVO: {fileID: 8300000, guid: dbde3896c26f7214fad22add73bfb6f7, type: 3}
+  elderArchitectVO: {fileID: 8300000, guid: 3abaf377ff18b7f408e9d9d39feb3702, type: 3}
+  youngerNerdVO: {fileID: 8300000, guid: 304de2826cbf4e643889015a1cd9ae0e, type: 3}
+  youngerRockstarVO: {fileID: 8300000, guid: 24938f15ac094bd41848348e06b53b13, type: 3}
+  youngerDavidVO: {fileID: 8300000, guid: 6a2d9405311a33e489c6fd72ae73444e, type: 3}
+  youngerJdSalingerVO: {fileID: 8300000, guid: b3e842a12edba7744b384e1b28514079, type: 3}
+  youngerPoliticianVO: {fileID: 8300000, guid: 9410e220fe1d4fc4b9c50e6f8b5741bc, type: 3}
+  youngerArchitectVO: {fileID: 8300000, guid: cc1c2d60f2e3de043b9c9a0f26bd86be, type: 3}
 --- !u!4 &1909842949
 Transform:
   m_ObjectHideFlags: 0
