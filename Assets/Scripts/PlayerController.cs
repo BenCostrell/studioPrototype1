@@ -218,7 +218,9 @@ public class PlayerController : MonoBehaviour {
 		float knockbackMagnitude = baseKnockback + (knockbackGrowth * damage * knockbackDamageGrowthFactor);
 		Stun(knockbackMagnitude * hitstunFactor);
 		rb.velocity = knockbackMagnitude * knockbackVector;
-		fightSceneManager.UpdateDamageUI (gameObject);
+		if (inFightScene) {
+			fightSceneManager.UpdateDamageUI (gameObject);
+		}
 	}
 
 	public void Stun(float hitstun){

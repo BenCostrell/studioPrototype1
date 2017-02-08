@@ -51,46 +51,54 @@ public class FightSceneManager : MonoBehaviour {
 	}
 
 	void InitializePlayers(){
-		List<Ability.Type> p1TestList = new List<Ability.Type>(){Ability.Type.Fireball, Ability.Type.Lunge};
-		List<Ability.Type> p2TestList = new List<Ability.Type>(){Ability.Type.Sing, Ability.Type.Shield};
-
 		player1 = Instantiate (playerPrefab, player1Spawn, Quaternion.identity) as GameObject;
-		PlayerController pc1 = player1.GetComponent<PlayerController> ();
-		pc1.inFightScene = true;
-		player1.GetComponent<SpriteRenderer> ().sprite = player1Sprite;
-		pc1.playerNum = 1;
-		player1.GetComponent<Animator> ().runtimeAnimatorController = player1Anim;
-		if (gameInfo == null) {
-			pc1.abilityList = p1TestList;
-		} else {
-			pc1.abilityList = gameInfo.GetComponent<GameInfo> ().player1Abilities;
-		}
-		Sprite spriteP1A1;
-		spriteDict.TryGetValue (pc1.abilityList [0], out spriteP1A1);
-		cooldownUIP1A1.GetComponent<SpriteRenderer> ().sprite = spriteP1A1;
-		Sprite spriteP1A2;
-		spriteDict.TryGetValue (pc1.abilityList [1], out spriteP1A2);
-		cooldownUIP1A2.GetComponent<SpriteRenderer> ().sprite = spriteP1A2;
-
-
 		player2 = Instantiate (playerPrefab, player2Spawn, Quaternion.identity) as GameObject;
-		PlayerController pc2 = player2.GetComponent<PlayerController> ();
-		pc2.inFightScene = true;
-		player2.GetComponent<SpriteRenderer> ().sprite = player2Sprite;
-		pc2.playerNum = 2;
-		player2.GetComponent<Animator> ().runtimeAnimatorController = player2Anim;
-		if (gameInfo == null) {
-			pc2.abilityList = p2TestList;
-		} else {
-			pc2.abilityList = gameInfo.GetComponent<GameInfo> ().player2Abilities;
-		}
-		Sprite spriteP2A1;
-		spriteDict.TryGetValue (pc2.abilityList [0], out spriteP2A1);
-		cooldownUIP2A1.GetComponent<SpriteRenderer> ().sprite = spriteP2A1;
-		Sprite spriteP2A2;
-		spriteDict.TryGetValue (pc2.abilityList [1], out spriteP2A2);
-		cooldownUIP2A2.GetComponent<SpriteRenderer> ().sprite = spriteP2A2;
 
+		InitializePlayer (player1, 1);
+		InitializePlayer (player2, 2);
+	}
+
+	void InitializePlayer(GameObject player, int playerNum){
+		Sprite playerSprite;
+		RuntimeAnimatorController playerAnim;
+		List<Ability.Type> abilityList;
+		GameObject cooldownUIA1;
+		GameObject cooldownUIA2;
+
+		if (playerNum == 1) {
+			playerSprite = player1Sprite;
+			playerAnim = player1Anim;
+			cooldownUIA1 = cooldownUIP1A1;
+			cooldownUIA2 = cooldownUIP1A2;
+			if (gameInfo == null) {
+				abilityList = new List<Ability.Type> (){ Ability.Type.Fireball, Ability.Type.Lunge };
+			} else {
+				abilityList = gameInfo.GetComponent<GameInfo> ().player1Abilities;
+			}
+		} else {
+			playerSprite = player2Sprite;
+			playerAnim = player2Anim;
+			cooldownUIA1 = cooldownUIP2A1;
+			cooldownUIA2 = cooldownUIP2A2;
+			if (gameInfo == null) {
+				abilityList = new List<Ability.Type> (){ Ability.Type.Sing, Ability.Type.Shield };
+			} else {
+				abilityList = gameInfo.GetComponent<GameInfo> ().player2Abilities;
+			}
+		}
+
+		PlayerController pc = player.GetComponent<PlayerController> ();
+		pc.inFightScene = true;
+		pc.playerNum = playerNum;
+		player.GetComponent<SpriteRenderer> ().sprite = playerSprite;
+		player.GetComponent<Animator> ().runtimeAnimatorController = playerAnim;
+		pc.abilityList = abilityList;
+		Sprite spriteA1;
+		spriteDict.TryGetValue (abilityList [0], out spriteA1);
+		cooldownUIA1.GetComponent<SpriteRenderer> ().sprite = spriteA1;
+		Sprite spriteA2;
+		spriteDict.TryGetValue (abilityList [1], out spriteA2);
+		cooldownUIA2.GetComponent<SpriteRenderer> ().sprite = spriteA2;
 	}
 
 	public void UpdateCooldownBar(int playerNum, int abilityNum, float fractionOfCooldownRemaining){
