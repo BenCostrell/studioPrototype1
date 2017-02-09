@@ -281,7 +281,7 @@ public class ToySceneManager : MonoBehaviour {
     {
         yield return new WaitForSeconds(time);
 		SetGameInfo ();
-        SceneManager.LoadScene("fightRoom");
+        SceneManager.LoadScene("transitionRoom");
     }
 
 	void SetGameInfo(){
