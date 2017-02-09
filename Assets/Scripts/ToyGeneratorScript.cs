@@ -29,11 +29,6 @@ public class ToyGeneratorScript: MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (Input.GetButtonDown("Reset"))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-
     }
 
     void ToySpawner()

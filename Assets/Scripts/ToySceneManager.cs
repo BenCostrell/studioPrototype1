@@ -46,6 +46,7 @@ public class ToySceneManager : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+		gameInfo = GameObject.FindWithTag ("GameInfo");
 		CreateToyAbilityDict ();
 		InitializePlayers();
         audioSource = Camera.main.GetComponent<AudioSource>();
@@ -57,7 +58,13 @@ public class ToySceneManager : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (player1.GetComponent<PlayerController>().playerToys.Count == 2 && player2.GetComponent<PlayerController>().playerToys.Count == 2)
+		if (Input.GetButtonDown("Reset"))
+		{
+			Destroy (gameInfo);
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
+
+		if (player1.GetComponent<PlayerController>().playerToys.Count == 2 && player2.GetComponent<PlayerController>().playerToys.Count == 2)
         {
             VoiceOverDebug();
 
