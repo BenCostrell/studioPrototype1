@@ -34,8 +34,14 @@ public class PlayerController : MonoBehaviour {
 	private bool ability1OnCooldown;
 	private bool ability2OnCooldown;
 
-	// Use this for initialization
-	void Start () {
+    AudioSource audioSource;
+    AudioClip audioClip;
+
+    public AudioClip player1Died;
+    public AudioClip player2Died;
+
+    // Use this for initialization
+    void Start () {
 		rb = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> ();
 		timeUntilActionable = 0;
@@ -44,7 +50,10 @@ public class PlayerController : MonoBehaviour {
 		inHitstun = false;
 		actionInProcess = false;
 
-		playerToys = new List<string>(); 
+        audioSource = Camera.main.GetComponent<AudioSource>();
+        audioClip = Camera.main.GetComponent<AudioClip>();
+
+        playerToys = new List<string>(); 
 
 		if (inFightScene) {
 			fightSceneManager = GameObject.FindWithTag ("FightSceneManager").GetComponent<FightSceneManager>();
@@ -208,7 +217,20 @@ public class PlayerController : MonoBehaviour {
 
 	void Die(){
 		Destroy (gameObject);
-	}
+        if (gameObject == fightSceneManager.player1)
+        {
+            Debug.Log("player 1 died");
+            audioSource.clip = player1Died;
+            audioSource.Play();
+        }
+        else if (gameObject == fightSceneManager.player2)
+        {
+            Debug.Log("player 2 died");
+            audioSource.clip = player2Died;
+            audioSource.Play();
+        }
+
+    }
 
 
 		

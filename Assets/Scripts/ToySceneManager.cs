@@ -21,7 +21,6 @@ public class ToySceneManager : MonoBehaviour {
 	private Dictionary<string, Ability.Type> toyAbilityDict;
 
     AudioSource audioSource;
-    AudioClip audioClip;
 
     //elder sister VO's
     public AudioClip elderNerdVO;
@@ -50,7 +49,6 @@ public class ToySceneManager : MonoBehaviour {
 		CreateToyAbilityDict ();
 		InitializePlayers();
         audioSource = Camera.main.GetComponent<AudioSource>();
-        audioClip = Camera.main.GetComponent<AudioClip>();
 
         fadeToBlack = false;
         transitionImage.canvasRenderer.SetAlpha(0f);
