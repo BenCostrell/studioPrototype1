@@ -37,7 +37,12 @@ public class FightSceneManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetButtonDown("Reset")) {
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			if (Input.GetButton("HardReset")){
+				Destroy(gameInfo);
+				SceneManager.LoadScene("toyRoom");
+			} else {
+				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			}
 		}
 	}
 
