@@ -27,6 +27,7 @@ public class Fireball : Attack {
 		damage = 1;
 		speed = 10;
 		isProjectile = true;
+		onCastAudio = Resources.Load ("Sounds/Abilities/Fireball") as AudioClip;
 
 		base.Init (player);
 

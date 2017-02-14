@@ -18,7 +18,10 @@ public class Shield : Ability {
 		animTrigger = "Shield";
 		castDuration = 0.5f;
 		cooldown = 2f;
+		onCastAudio = Resources.Load ("Sounds/Abilities/Shield") as AudioClip;
+
 		base.Init (player);
+
 		Destroy (gameObject, castDuration);
 		player.GetComponent<PlayerController> ().isInvulnerable = true;
 	}

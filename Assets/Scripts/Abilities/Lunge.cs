@@ -25,6 +25,7 @@ public class Lunge : Attack {
 		damage = 2;
 		speed = 20;
 		isProjectile = false;
+		onCastAudio = Resources.Load ("Sounds/Abilities/Lunge") as AudioClip;
 
 		base.Init (player);
 		GetComponent<FixedJoint2D> ().connectedBody = player.GetComponent<Rigidbody2D> ();

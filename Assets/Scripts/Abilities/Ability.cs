@@ -10,6 +10,8 @@ public class Ability : MonoBehaviour {
 	public GameObject parentPlayer;
 	public float castDuration;
 	public string animTrigger;
+	protected AudioSource audioSource;
+	protected AudioClip onCastAudio;
 
 	// Use this for initialization
 	void Start () {
@@ -24,5 +26,14 @@ public class Ability : MonoBehaviour {
 		parentPlayer = player;
 		player.GetComponent<PlayerController> ().InitiateAction (castDuration);
 		player.GetComponent<PlayerController> ().anim.SetTrigger (animTrigger);
+		audioSource = gameObject.AddComponent<AudioSource> ();
+		OnCast ();
+	}
+
+	protected virtual void OnCast(){
+		if (onCastAudio != null) {
+			audioSource.clip = onCastAudio;
+			audioSource.Play ();
+		}
 	}
 }
