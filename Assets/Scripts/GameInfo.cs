@@ -16,6 +16,8 @@ public class GameInfo : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (Input.GetButtonDown ("ToggleFullscreen")) {
+			Screen.fullScreen = !Screen.fullScreen;
+		}
 	}
 }
